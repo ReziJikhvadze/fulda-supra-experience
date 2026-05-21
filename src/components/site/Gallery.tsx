@@ -4,6 +4,7 @@ import g3 from "@/assets/gallery-3.jpg";
 import g4 from "@/assets/gallery-4.jpg";
 import g5 from "@/assets/gallery-5.jpg";
 import g6 from "@/assets/gallery-6.jpg";
+import { useTranslation } from "react-i18next";
 import { Ornament } from "./Ornament";
 
 const items = [
@@ -16,23 +17,21 @@ const items = [
 ];
 
 export function Gallery() {
+  const { t } = useTranslation();
   return (
     <section className="py-24 md:py-32 bg-walnut text-cream">
       <div className="px-6 md:px-12 mb-16 text-center">
         <Ornament className="mb-8" />
         <span className="text-gold text-[10px] uppercase tracking-[0.3em] font-medium">
-          Atmosphere
+          {t("gallery.eyebrow")}
         </span>
-        <h2 className="mt-3 text-5xl md:text-6xl font-serif italic">An Evening with Us</h2>
+        <h2 className="mt-3 text-5xl md:text-6xl font-serif italic">{t("gallery.title")}</h2>
       </div>
 
       <div className="px-4 md:px-8">
         <div className="grid grid-cols-2 md:grid-cols-3 auto-rows-[180px] md:auto-rows-[220px] gap-3">
           {items.map((it, i) => (
-            <figure
-              key={i}
-              className={`relative overflow-hidden group ${it.span}`}
-            >
+            <figure key={i} className={`relative overflow-hidden group ${it.span}`}>
               <img
                 src={it.src}
                 alt={it.alt}

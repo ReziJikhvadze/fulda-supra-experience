@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
-
-const links = [
-  { href: "#menu", label: "The Kitchen" },
-  { href: "#wine", label: "Wine Cellar" },
-  { href: "#story", label: "Our Story" },
-  { href: "#events", label: "Events" },
-  { href: "#reserve", label: "Reservations" },
-];
+import { useTranslation } from "react-i18next";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 export function SiteNav() {
+  const { t } = useTranslation();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+
+  const links = [
+    { href: "#menu", label: t("nav.kitchen") },
+    { href: "#wine", label: t("nav.wine") },
+    { href: "#story", label: t("nav.story") },
+    { href: "#events", label: t("nav.events") },
+    { href: "#reserve", label: t("nav.reservations") },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -38,12 +41,15 @@ export function SiteNav() {
             </a>
           ))}
         </div>
-        <a
-          href="#reserve"
-          className="hidden md:inline-block px-5 py-2 border border-cream/30 text-[11px] uppercase tracking-[0.2em] hover:bg-cream hover:text-walnut transition-all"
-        >
-          Book Table
-        </a>
+        <div className="hidden md:flex items-center gap-6">
+          <LanguageSwitcher tone="light" />
+          <a
+            href="#reserve"
+            className="inline-block px-5 py-2 border border-cream/30 text-[11px] uppercase tracking-[0.2em] hover:bg-cream hover:text-walnut transition-all"
+          >
+            {t("nav.book")}
+          </a>
+        </div>
         <button
           onClick={() => setOpen((v) => !v)}
           className="md:hidden text-cream"
@@ -62,12 +68,15 @@ export function SiteNav() {
                 {l.label}
               </a>
             ))}
+            <div className="pt-2">
+              <LanguageSwitcher tone="light" />
+            </div>
             <a
               href="#reserve"
               onClick={() => setOpen(false)}
               className="mt-2 inline-block px-5 py-3 border border-cream/30 text-center text-xs"
             >
-              Book Table
+              {t("nav.book")}
             </a>
           </div>
         </div>

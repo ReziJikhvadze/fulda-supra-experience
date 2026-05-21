@@ -1,20 +1,22 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { z } from "zod";
 import { Ornament } from "./Ornament";
 
-const schema = z.object({
-  name: z.string().trim().min(2, "Please enter your name").max(80),
-  phone: z.string().trim().min(5, "Please enter a phone number").max(30),
-  email: z.string().trim().email("Invalid email").max(120),
-  date: z.string().min(1, "Pick a date"),
-  time: z.string().min(1, "Pick a time"),
-  guests: z.string().min(1),
-  notes: z.string().max(500).optional(),
-});
-
 export function Reservation() {
+  const { t } = useTranslation();
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const schema = z.object({
+    name: z.string().trim().min(2, t("reservation.errors.name")).max(80),
+    phone: z.string().trim().min(5, t("reservation.errors.phone")).max(30),
+    email: z.string().trim().email(t("reservation.errors.email")).max(120),
+    date: z.string().min(1, t("reservation.errors.date")),
+    time: z.string().min(1, t("reservation.errors.time")),
+    guests: z.string().min(1),
+    notes: z.string().max(500).optional(),
+  });
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,10 +24,9 @@ export function Reservation() {
     const fd = new FormData(e.currentTarget);
     const parsed = schema.safeParse(Object.fromEntries(fd));
     if (!parsed.success) {
-      setError(parsed.error.issues[0]?.message ?? "Please check your details");
+      setError(parsed.error.issues[0]?.message ?? t("reservation.errors.generic"));
       return;
     }
-    // Future: POST to serverFn / Cloud / WhatsApp / email
     setSubmitted(true);
   };
 
@@ -35,51 +36,37 @@ export function Reservation() {
         <div>
           <Ornament className="mb-8 justify-start" />
           <span className="text-gold text-[10px] uppercase tracking-[0.3em] font-medium">
-            Reservation
+            {t("reservation.eyebrow")}
           </span>
-          <h2 className="mt-4 text-4xl md:text-5xl font-serif italic">
-            Reserve Your Georgian Table in Fulda
-          </h2>
+          <h2 className="mt-4 text-4xl md:text-5xl font-serif italic">{t("reservation.title")}</h2>
           <p className="mt-8 text-cream/75 font-light text-lg leading-relaxed">
-            Join us at Am Stockhaus 10–12 for handmade Georgian dishes, warm
-            wine, and true hospitality.
+            {t("reservation.body")}
           </p>
 
           <div className="mt-12 space-y-6">
-            <a
-              href="tel:+4906611234567"
-              className="flex items-center gap-4 text-cream/90 hover:text-gold transition-colors"
-            >
-              <span className="text-gold font-serif italic">Call</span>
+            <a href="tel:+4906611234567" className="flex items-center gap-4 text-cream/90 hover:text-gold transition-colors">
+              <span className="text-gold font-serif italic">{t("reservation.call")}</span>
               <span className="text-lg">+49 (0) 661 123 4567</span>
             </a>
-            <a
-              href="https://wa.me/4906611234567"
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-4 text-cream/90 hover:text-gold transition-colors"
-            >
-              <span className="text-gold font-serif italic">WhatsApp</span>
-              <span className="text-lg">Message us directly</span>
+            <a href="https://wa.me/4906611234567" target="_blank" rel="noreferrer" className="flex items-center gap-4 text-cream/90 hover:text-gold transition-colors">
+              <span className="text-gold font-serif italic">{t("reservation.whatsapp")}</span>
+              <span className="text-lg">{t("reservation.whatsappCta")}</span>
             </a>
           </div>
         </div>
 
         {submitted ? (
           <div className="border border-gold/40 p-12 text-center">
-            <h3 className="font-serif italic text-3xl text-gold mb-4">Madloba.</h3>
-            <p className="text-cream/80 font-light leading-relaxed">
-              Your reservation request has been received. We will confirm by
-              phone or email shortly.
-            </p>
+            <h3 className="font-serif italic text-3xl text-gold mb-4">{t("reservation.successTitle")}</h3>
+            <p className="text-cream/80 font-light leading-relaxed">{t("reservation.successBody")}</p>
           </div>
         ) : (
           <form onSubmit={onSubmit} className="space-y-5" noValidate>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <Field name="name" placeholder="Name" />
-              <Field name="phone" placeholder="Phone" type="tel" />
+              <Field name="name" placeholder={t("reservation.name")} />
+              <Field name="phone" placeholder={t("reservation.phone")} type="tel" />
             </div>
-            <Field name="email" placeholder="Email" type="email" />
+            <Field name="email" placeholder={t("reservation.email")} type="email" />
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-5">
               <Field name="date" type="date" />
               <Field name="time" type="time" />
@@ -90,15 +77,17 @@ export function Reservation() {
               >
                 {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
                   <option key={n} value={n} className="bg-walnut text-cream">
-                    {n} {n === 1 ? "Guest" : "Guests"}
+                    {n} {n === 1 ? t("reservation.guest") : t("reservation.guests")}
                   </option>
                 ))}
-                <option value="9" className="bg-walnut">9+ Guests</option>
+                <option value="9" className="bg-walnut">
+                  {t("reservation.guestsPlus")}
+                </option>
               </select>
             </div>
             <textarea
               name="notes"
-              placeholder="Special request (allergies, occasion…)"
+              placeholder={t("reservation.notes")}
               rows={3}
               className="w-full bg-transparent border-b border-cream/25 py-3 text-sm text-cream placeholder:text-cream/40 focus:outline-none focus:border-gold transition-colors"
             />
@@ -107,7 +96,7 @@ export function Reservation() {
               type="submit"
               className="w-full bg-gold text-walnut py-4 uppercase text-[11px] tracking-[0.25em] font-medium hover:bg-cream transition-colors"
             >
-              Send Reservation Request
+              {t("reservation.submit")}
             </button>
           </form>
         )}
@@ -116,15 +105,7 @@ export function Reservation() {
   );
 }
 
-function Field({
-  name,
-  placeholder,
-  type = "text",
-}: {
-  name: string;
-  placeholder?: string;
-  type?: string;
-}) {
+function Field({ name, placeholder, type = "text" }: { name: string; placeholder?: string; type?: string }) {
   return (
     <input
       name={name}

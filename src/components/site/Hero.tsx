@@ -1,7 +1,9 @@
 import heroImg from "@/assets/hero-table.jpg";
+import { useTranslation } from "react-i18next";
 import { Ornament } from "./Ornament";
 
 export function Hero() {
+  const { t } = useTranslation();
   return (
     <section id="top" className="relative h-screen min-h-[680px] w-full overflow-hidden bg-walnut">
       <img
@@ -26,22 +28,21 @@ export function Hero() {
           className="text-gold font-serif italic text-lg md:text-xl mb-6"
           style={{ animation: "var(--animate-fade-up)" }}
         >
-          Est. in the heart of Fulda
+          {t("hero.eyebrow")}
         </span>
         <h1
           className="font-serif text-5xl md:text-7xl lg:text-8xl leading-[0.95] max-w-5xl text-balance"
           style={{ animation: "var(--animate-fade-up)", animationDelay: "120ms" }}
         >
-          Georgian Cuisine
+          {t("hero.title1")}
           <br />
-          <span className="italic font-light">in the Heart of Fulda</span>
+          <span className="italic font-light">{t("hero.title2")}</span>
         </h1>
         <p
           className="mt-8 max-w-xl text-cream/80 text-base md:text-lg font-light leading-relaxed"
           style={{ animation: "var(--animate-fade-up)", animationDelay: "240ms" }}
         >
-          Traditional flavors, warm hospitality, and unforgettable Georgian dining at
-          Am Stockhaus 10–12.
+          {t("hero.subtitle")}
         </p>
 
         <div
@@ -52,18 +53,18 @@ export function Hero() {
             href="#menu"
             className="bg-gold text-walnut px-10 py-4 uppercase text-[11px] tracking-[0.25em] font-medium hover:bg-wine hover:text-cream transition-colors"
           >
-            View Menu
+            {t("hero.viewMenu")}
           </a>
           <a
             href="#reserve"
             className="border border-cream/40 text-cream px-10 py-4 uppercase text-[11px] tracking-[0.25em] font-medium hover:bg-cream hover:text-walnut transition-colors"
           >
-            Reserve a Table
+            {t("hero.reserve")}
           </a>
         </div>
 
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-70">
-          <span className="text-[10px] tracking-[0.3em] uppercase text-cream/60">Scroll</span>
+          <span className="text-[10px] tracking-[0.3em] uppercase text-cream/60">{t("hero.scroll")}</span>
           <div className="w-px h-12 bg-gradient-to-b from-cream/60 to-transparent" />
         </div>
       </div>
