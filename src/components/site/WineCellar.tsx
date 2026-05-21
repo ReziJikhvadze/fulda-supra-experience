@@ -1,14 +1,11 @@
 import wineImg from "@/assets/wine-cellar.jpg";
+import { useTranslation } from "react-i18next";
 import { Ornament } from "./Ornament";
 
-const wines = [
-  { name: "Saperavi Qvevri", region: "Kakheti", note: "Bold, dark cherry, mountain smoke." },
-  { name: "Rkatsiteli Amber", region: "Kakheti", note: "Legendary orange wine — complex, floral." },
-  { name: "Mukuzani Reserve", region: "Kakheti", note: "Aged Saperavi, deep and structured." },
-  { name: "Kindzmarauli", region: "Alazani Valley", note: "Semi-sweet red, plum and blackberry." },
-];
+const wineKeys = ["saperavi", "rkatsiteli", "mukuzani", "kindzmarauli"] as const;
 
 export function WineCellar() {
+  const { t } = useTranslation();
   return (
     <section id="wine" className="relative py-32 md:py-40 bg-wine text-cream overflow-hidden">
       <img
@@ -25,29 +22,26 @@ export function WineCellar() {
         <div className="text-center">
           <Ornament className="mb-8" />
           <span className="text-gold uppercase tracking-[0.35em] text-[10px] font-medium">
-            Ancient Traditions
+            {t("wine.eyebrow")}
           </span>
-          <h2 className="mt-4 text-5xl md:text-7xl font-serif italic">
-            Discover the Birthplace of Wine
-          </h2>
+          <h2 className="mt-4 text-5xl md:text-7xl font-serif italic">{t("wine.title")}</h2>
           <p className="mt-8 max-w-2xl mx-auto text-cream/80 font-light text-lg leading-relaxed">
-            Georgia is one of the oldest wine cultures in the world. For 8,000
-            years, qvevri have been buried in the earth to age what we pour
-            tonight. Our cellar brings the depth, warmth and character of
-            Georgian winemaking to Fulda.
+            {t("wine.body")}
           </p>
         </div>
 
         <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 gap-px bg-cream/10">
-          {wines.map((w) => (
-            <div key={w.name} className="bg-wine p-8 hover:bg-walnut/40 transition-colors">
+          {wineKeys.map((k) => (
+            <div key={k} className="bg-wine p-8 hover:bg-walnut/40 transition-colors">
               <div className="flex items-baseline justify-between gap-4">
-                <h3 className="font-serif text-2xl">{w.name}</h3>
+                <h3 className="font-serif text-2xl">{t(`wine.items.${k}.name`)}</h3>
                 <span className="text-[10px] uppercase tracking-[0.25em] text-gold">
-                  {w.region}
+                  {t(`wine.items.${k}.region`)}
                 </span>
               </div>
-              <p className="mt-3 text-cream/70 font-light text-sm leading-relaxed">{w.note}</p>
+              <p className="mt-3 text-cream/70 font-light text-sm leading-relaxed">
+                {t(`wine.items.${k}.note`)}
+              </p>
             </div>
           ))}
         </div>
@@ -57,7 +51,7 @@ export function WineCellar() {
             href="#reserve"
             className="inline-block px-12 py-4 border border-gold text-gold text-[11px] uppercase tracking-[0.25em] hover:bg-gold hover:text-wine transition-colors"
           >
-            Reserve a wine tasting
+            {t("wine.cta")}
           </a>
         </div>
       </div>
