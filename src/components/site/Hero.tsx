@@ -11,9 +11,9 @@ export function Hero() {
         alt="Georgian supra dinner table with khachapuri, khinkali and wine at Am Stockhaus Fulda"
         width={1920}
         height={1280}
-        className="absolute inset-0 h-full w-full object-cover opacity-60"
+        className="absolute inset-0 h-full w-full object-cover opacity-85"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-walnut/40 via-walnut/30 to-walnut" />
+      <div className="absolute inset-0 bg-gradient-to-b from-walnut/20 via-walnut/30 to-walnut/70" />
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
