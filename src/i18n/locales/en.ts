@@ -175,4 +175,43 @@ export const en = {
     madeWith: "Made with warmth.",
   },
   lang: { label: "Language" },
+  heritage: {
+    eyebrow: "Culture & Heritage",
+    title: "Eight thousand years at our table",
+    subtitle:
+      "Georgia is a small country with a vast soul — a crossroads of Europe and Asia where bread, wine and song have been shared at the same table for millennia.",
+    supra: {
+      chapter: "Chapter I",
+      title: "The Supra — a feast as a way of life",
+      p1:
+        "The Supra is the Georgian feast: a long table loaded with dishes, led by a Tamada — the toastmaster — who shapes the evening through poetic toasts to family, peace, ancestors and love.",
+      p2:
+        "It is never only about eating. A Supra is theatre, prayer and homecoming. Guests are honoured as a gift from God, and the table only ends when every story has been told.",
+      quote: "A guest is a gift from God.",
+    },
+    qvevri: {
+      chapter: "Chapter II",
+      title: "Qvevri — wine born in the earth",
+      p1:
+        "For over 8,000 years, Georgians have made wine in qvevri — large clay vessels buried in the ground. Grapes, skins, stems and seeds ferment together for months in the cool, even temperature of the earth.",
+      p2:
+        "Recognised by UNESCO as Intangible Cultural Heritage, this is the oldest continuous winemaking tradition in the world — and the origin of today's celebrated amber and orange wines.",
+      quote: "Wine is the blood of the Georgian land.",
+    },
+    georgia: {
+      chapter: "Chapter III",
+      title: "A land of mountains, vineyards and song",
+      p1:
+        "Between the Black Sea and the Caucasus mountains lies Sakartvelo — Georgia. Its own alphabet, its own language, and a polyphonic singing tradition older than the cathedrals that still echo it.",
+      p2:
+        "From the vineyards of Kakheti to the bakeries of Tbilisi, every region carries its own recipes. We bring that mosaic — warm, generous and ancient — to our table in Fulda.",
+      quote: "Sakartvelos gaumarjos — long live Georgia.",
+    },
+    facts: [
+      { value: "8,000+", label: "Years of winemaking" },
+      { value: "525+", label: "Indigenous grape varieties" },
+      { value: "33", label: "Letters in the Georgian alphabet" },
+      { value: "1", label: "Long table for every guest" },
+    ],
+  },
 };

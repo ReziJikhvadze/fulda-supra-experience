@@ -175,4 +175,43 @@ export const de = {
     madeWith: "Mit Wärme gemacht.",
   },
   lang: { label: "Sprache" },
+  heritage: {
+    eyebrow: "Kultur & Erbe",
+    title: "Achttausend Jahre an unserem Tisch",
+    subtitle:
+      "Georgien ist ein kleines Land mit einer großen Seele — ein Kreuzweg zwischen Europa und Asien, wo Brot, Wein und Gesang seit Jahrtausenden am selben Tisch geteilt werden.",
+    supra: {
+      chapter: "Kapitel I",
+      title: "Die Supra — ein Fest als Lebensart",
+      p1:
+        "Die Supra ist das georgische Festmahl: eine lange Tafel voller Speisen, geleitet vom Tamada — dem Tischmeister — der den Abend mit poetischen Trinksprüchen auf Familie, Frieden, Vorfahren und Liebe gestaltet.",
+      p2:
+        "Es geht niemals nur ums Essen. Eine Supra ist Theater, Gebet und Heimkehr. Gäste werden als Geschenk Gottes geehrt, und die Tafel endet erst, wenn jede Geschichte erzählt ist.",
+      quote: "Ein Gast ist ein Geschenk Gottes.",
+    },
+    qvevri: {
+      chapter: "Kapitel II",
+      title: "Qvevri — Wein aus der Erde geboren",
+      p1:
+        "Seit über 8.000 Jahren stellen Georgier Wein in Qvevri her — großen Tongefäßen, die in der Erde vergraben werden. Trauben, Schalen, Stiele und Kerne gären gemeinsam monatelang in der kühlen, gleichmäßigen Temperatur der Erde.",
+      p2:
+        "Von der UNESCO als immaterielles Kulturerbe anerkannt, ist dies die älteste durchgehende Weintradition der Welt — und der Ursprung der heute gefeierten Amber- und Orange-Weine.",
+      quote: "Wein ist das Blut der georgischen Erde.",
+    },
+    georgia: {
+      chapter: "Kapitel III",
+      title: "Ein Land aus Bergen, Reben und Gesang",
+      p1:
+        "Zwischen dem Schwarzen Meer und dem Kaukasus liegt Sakartvelo — Georgien. Ein eigenes Alphabet, eine eigene Sprache und eine polyphone Gesangstradition, älter als die Kathedralen, in denen sie noch heute erklingt.",
+      p2:
+        "Von den Weinbergen Kachetiens bis zu den Bäckereien von Tiflis trägt jede Region ihre eigenen Rezepte. Dieses Mosaik — warm, großzügig und uralt — bringen wir an unsere Tafel in Fulda.",
+      quote: "Sakartvelos gaumarjos — es lebe Georgien.",
+    },
+    facts: [
+      { value: "8.000+", label: "Jahre Weinbau" },
+      { value: "525+", label: "Einheimische Rebsorten" },
+      { value: "33", label: "Buchstaben im georgischen Alphabet" },
+      { value: "1", label: "Lange Tafel für jeden Gast" },
+    ],
+  },
 };
