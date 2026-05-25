@@ -5,6 +5,7 @@ import { Intro } from "@/components/site/Intro";
 import { SignatureDishes } from "@/components/site/SignatureDishes";
 import { MenuSection } from "@/components/site/MenuSection";
 import { WineCellar } from "@/components/site/WineCellar";
+import { Heritage } from "@/components/site/Heritage";
 import { Story } from "@/components/site/Story";
 import { Gallery } from "@/components/site/Gallery";
 import { Events } from "@/components/site/Events";
@@ -64,6 +65,7 @@ function Index() {
         <SignatureDishes />
         <MenuSection />
         <WineCellar />
+        <Heritage />
         <Story />
         <Gallery />
         <Events />
