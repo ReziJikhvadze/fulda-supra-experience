@@ -1,6 +1,4 @@
-# One deploy: API + restaurant website → flaudaa (single Azure App Service)
-
-name: Build and deploy ASP.Net Core app to Azure Web App - flaudaa
+name: Deploy flaudaa
 
 on:
   push:
@@ -8,6 +6,9 @@ on:
       - main
       - master
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 env:
   API_PROJECT: Fulda.API/Fulda.API/Fulda.API.csproj
@@ -17,8 +18,6 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
 
     steps:
       - uses: actions/checkout@v4
@@ -28,7 +27,7 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Build website (static SPA, same origin as API)
+      - name: Build website
         working-directory: ${{ env.WEB_ROOT }}
         run: |
           npm ci
@@ -36,13 +35,13 @@ jobs:
         env:
           VITE_API_URL: ""
 
-      - name: Stage SPA for .NET publish
+      - name: Stage SPA for publish
         run: |
           rm -rf Fulda.API/Fulda.API/spa
           mkdir -p Fulda.API/Fulda.API/spa
           cp -r ${{ env.WEB_ROOT }}/dist/azure/* Fulda.API/Fulda.API/spa/
 
-      - name: Set up .NET 8
+      - name: Setup .NET 8
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.x'
@@ -87,5 +86,4 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: flaudaa
-          slot-name: Production
           package: api-app

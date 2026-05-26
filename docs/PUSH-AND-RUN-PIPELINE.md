@@ -22,7 +22,7 @@ If Git Changes shows **nothing**, your edits may not be saved — save all files
 
 1. Open in browser:  
    `https://github.com/ReziJikhvadze/fulda-supra-experience/actions`
-2. Workflow: **Build and deploy ASP.Net Core app to Azure Web App - flaudaa**
+2. Workflow: **Deploy flaudaa**
 3. A yellow dot = running; green = success.
 
 ## Step 4 — Manual run (no new code)
@@ -41,7 +41,15 @@ If **Run workflow** is missing, the workflow file is not on `main` yet — do St
 | Azure DevOps / `azure-pipelines.yml` | Not used unless you set up Azure DevOps separately |
 | GitHub → Actions | **Correct** |
 
+## "Failed to queue workflow run"
+
+1. **Push the workflow file first** — manual run only works if `.github/workflows/main_flaudaa.yml` is on `main` on GitHub (commit + push in Visual Studio).
+2. **Settings** → **Actions** → **General** → **Allow all actions and reusable workflows** → Save.
+3. Use workflow **Deploy flaudaa** (not old Azure-generated names).
+4. Try another browser or wait 5 minutes (GitHub glitch).
+5. **Alternative:** push any commit to `main` — that starts the deploy without **Run workflow**.
+
 ## Still nothing?
 
-- **Settings** → **Actions** → **General** → allow all actions.
-- Confirm you are member of `ReziJikhvadze/fulda-supra-experience` (not a fork without Actions).
+- Confirm you can push to `ReziJikhvadze/fulda-supra-experience` on branch `main`.
+- Private repo: check **Settings** → **Billing** — Actions need available minutes.
