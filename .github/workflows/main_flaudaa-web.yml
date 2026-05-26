@@ -1,11 +1,5 @@
-# Build and deploy frontend to a SECOND Azure App Service (create in Portal first).
-# Suggested name: flaudaa-web  (or flaudaa-frontend)
-#
-# After creating the web App Service, set GitHub secret / App Service settings:
-#   VITE_API_URL = https://flaudaa-dwf9bhg5e8g6bebv.canadacentral-01.azurewebsites.net
-#
-# Enable Deployment Center on the WEB app and point it at this workflow file,
-# OR copy the deploy secrets from the API app workflow.
+# Build static SPA for Azure App Service (flaudaa-web).
+# Uses build:azure — NOT the default Cloudflare/TanStack Start worker build.
 
 name: Build and deploy frontend to Azure Web App - flaudaa-web
 
@@ -20,7 +14,6 @@ on:
 
 env:
   WEB_ROOT: Fulda.API/Fulda.API/wwwroot
-  # Change after you create the web App Service in Azure Portal:
   WEBAPP_NAME: flaudaa-web
   VITE_API_URL: https://flaudaa-dwf9bhg5e8g6bebv.canadacentral-01.azurewebsites.net
 
@@ -42,29 +35,19 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build static site
-        run: npm run build
+      - name: Build for Azure (static SPA)
+        run: npm run build:azure
         env:
           VITE_API_URL: ${{ env.VITE_API_URL }}
 
-      - name: Prepare deploy folder
-        run: |
-          DEST="${GITHUB_WORKSPACE}/deploy/web"
-          mkdir -p "$DEST"
-          if [ -d dist ]; then cp -r dist/* "$DEST/"; fi
-          if [ -d .output/public ]; then cp -r .output/public/* "$DEST/"; fi
-          if [ -d client/dist ]; then cp -r client/dist/* "$DEST/"; fi
-          if [ ! -f "$DEST/index.html" ]; then
-            echo "Build output not found. Listing wwwroot:"
-            ls -la
-            exit 1
-          fi
+      - name: Verify build output
+        run: test -f dist/azure/index.html
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: web-app
-          path: deploy/web
+          path: ${{ env.WEB_ROOT }}/dist/azure
 
   deploy:
     runs-on: ubuntu-latest
@@ -80,7 +63,6 @@ jobs:
           name: web-app
           path: web-app
 
-      # Re-use the same Azure login secrets as the API workflow after linking the web app in Deployment Center
       - name: Login to Azure
         uses: azure/login@v2
         with:

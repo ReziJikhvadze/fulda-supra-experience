@@ -68,32 +68,29 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
+const isAzureStatic = import.meta.env.VITE_AZURE_STATIC === "true";
+
+const headConfig = () => ({
+  meta: [
+    { charSet: "utf-8" },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
+    { title: "Am Stockhaus — Georgian Restaurant in Fulda" },
+    {
+      name: "description",
+      content:
+        "Am Stockhaus — Georgian restaurant in Fulda. Authentic cuisine, wine, and hospitality.",
+    },
+  ],
+  links: [
+    {
+      rel: "stylesheet",
+      href: appCss,
+    },
+  ],
+});
+
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "A premium website for Am Stockhaus, a Georgian restaurant in Fulda, Germany, offering authentic cuisine and hospitality." },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "A premium website for Am Stockhaus, a Georgian restaurant in Fulda, Germany, offering authentic cuisine and hospitality." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Lovable App" },
-      { name: "twitter:description", content: "A premium website for Am Stockhaus, a Georgian restaurant in Fulda, Germany, offering authentic cuisine and hospitality." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/3f4b7a21-ff1f-4370-8bc4-096bd9adbc40/id-preview-475cef2d--f0b987a3-e74a-411c-aad0-52923fec9867.lovable.app-1779391659043.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/3f4b7a21-ff1f-4370-8bc4-096bd9adbc40/id-preview-475cef2d--f0b987a3-e74a-411c-aad0-52923fec9867.lovable.app-1779391659043.png" },
-    ],
-    links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
-    ],
-  }),
-  shellComponent: RootShell,
+  ...(isAzureStatic ? {} : { head: headConfig, shellComponent: RootShell }),
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
