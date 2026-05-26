@@ -1,5 +1,4 @@
-# Build and deploy API (Fulda.API) to Azure App Service: flaudaa
-# Repo layout: solution lives under Fulda.API/, not the repository root.
+# One deploy: API + restaurant website → flaudaa (single Azure App Service)
 
 name: Build and deploy ASP.Net Core app to Azure Web App - flaudaa
 
@@ -14,6 +13,7 @@ on:
 
 env:
   API_PROJECT: Fulda.API/Fulda.API/Fulda.API.csproj
+  WEB_ROOT: Fulda.API/Fulda.API/wwwroot
   PUBLISH_DIR: ./publish/api
 
 jobs:
@@ -24,6 +24,25 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build website (static SPA, same origin as API)
+        working-directory: ${{ env.WEB_ROOT }}
+        run: |
+          npm ci
+          npm run build:azure
+        env:
+          VITE_API_URL: ""
+
+      - name: Stage SPA for .NET publish
+        run: |
+          rm -rf Fulda.API/Fulda.API/spa
+          mkdir -p Fulda.API/Fulda.API/spa
+          cp -r ${{ env.WEB_ROOT }}/dist/azure/* Fulda.API/Fulda.API/spa/
 
       - name: Set up .NET 8
         uses: actions/setup-dotnet@v4

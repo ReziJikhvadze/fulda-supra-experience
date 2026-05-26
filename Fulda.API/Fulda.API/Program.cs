@@ -4,6 +4,7 @@ using Fulda.API.Middleware;
 using Fulda.Application.Validators;
 using Fulda.Infrastructure;
 using Fulda.Infrastructure.Data;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
 using Serilog;
 
@@ -97,11 +98,8 @@ try
     app.UseMiddleware<ExceptionHandlingMiddleware>();
     app.UseSerilogRequestLogging();
 
-    if (app.Environment.IsDevelopment())
-    {
-        app.UseSwagger();
-        app.UseSwaggerUI();
-    }
+    app.UseSwagger();
+    app.UseSwaggerUI();
 
     app.UseHttpsRedirection();
     app.UseCors("Frontend");
@@ -109,12 +107,45 @@ try
     app.UseAuthentication();
     app.UseAuthorization();
 
+    var spaPath = Path.Combine(app.Environment.ContentRootPath, "spa");
+    if (Directory.Exists(spaPath) && File.Exists(Path.Combine(spaPath, "index.html")))
+    {
+        var spaFiles = new PhysicalFileProvider(spaPath);
+        app.UseDefaultFiles(new DefaultFilesOptions { FileProvider = spaFiles });
+        app.UseStaticFiles(new StaticFileOptions { FileProvider = spaFiles });
+        Log.Information("Serving website from {SpaPath}", spaPath);
+    }
+
     app.MapControllers();
 
-    using (var scope = app.Services.CreateScope())
+    if (Directory.Exists(spaPath) && File.Exists(Path.Combine(spaPath, "index.html")))
     {
-        var seeder = scope.ServiceProvider.GetRequiredService<DatabaseSeeder>();
-        await seeder.SeedAdminUserAsync();
+        app.MapFallbackToFile("index.html", new StaticFileOptions
+        {
+            FileProvider = new PhysicalFileProvider(spaPath)
+        });
+    }
+    else if (app.Environment.IsProduction())
+    {
+        Log.Warning("SPA folder not found at {SpaPath}. Push to main to deploy the website with the API.", spaPath);
+    }
+
+    if (string.IsNullOrWhiteSpace(app.Configuration.GetConnectionString("DefaultConnection")))
+    {
+        Log.Warning("ConnectionStrings__DefaultConnection is not set. API and admin will not work until you add it in Azure (flaudaa → Environment variables). See docs/SETUP-SIMPLE.md.");
+    }
+    else
+    {
+        try
+        {
+            using var scope = app.Services.CreateScope();
+            var seeder = scope.ServiceProvider.GetRequiredService<DatabaseSeeder>();
+            await seeder.SeedAdminUserAsync();
+        }
+        catch (Exception ex)
+        {
+            Log.Warning(ex, "Could not seed admin user. Check SQL connection string and firewall.");
+        }
     }
 
     app.Run();

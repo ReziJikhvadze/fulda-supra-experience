@@ -19,4 +19,10 @@
     <ProjectReference Include="..\Fulda.Infrastructure\Fulda.Infrastructure.csproj" />
   </ItemGroup>
 
+  <!-- Frontend sources under wwwroot are not published; CI copies built SPA into spa/ -->
+  <ItemGroup>
+    <Content Remove="wwwroot\**\*" />
+    <Content Include="spa\**" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>

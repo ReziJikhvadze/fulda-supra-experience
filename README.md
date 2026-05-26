@@ -2,6 +2,8 @@
 
 Full-stack restaurant platform: Loveable (TanStack Start) frontend + .NET 8 Clean Architecture API.
 
+**Tired of Azure setup?** See **[docs/SETUP-SIMPLE.md](docs/SETUP-SIMPLE.md)** — one app (`flaudaa`), two settings, push to `main`.
+
 ## Solution structure
 
 ```

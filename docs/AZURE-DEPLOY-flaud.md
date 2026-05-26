@@ -16,12 +16,20 @@ It builds: `Fulda.API/Fulda.API/Fulda.API.csproj`
 
 ## API App Service settings (Configuration)
 
+**If the API log shows `ConnectionString property has not been initialized`**, `flaudaa` has no SQL connection string. Add it below and **Save** → **Restart** the app.
+
+Portal: **flaudaa** → **Settings** → **Environment variables** (or **Configuration** → **Application settings**).
+
 | Name | Value |
 |------|--------|
-| `ConnectionStrings__DefaultConnection` | Your AD connection string (see below) |
-| `Jwt__Secret` | Long random string (32+ chars) |
+| `ConnectionStrings__DefaultConnection` | Your SQL connection string (see below) — **required** |
+| `Jwt__Secret` | Long random string (32+ chars) — **required** |
 | `ASPNETCORE_ENVIRONMENT` | `Production` |
+| `AzureStorage__ConnectionString` | Storage account connection string (for admin image uploads) |
+| `AzureStorage__ContainerName` | `fulda-image` |
 | `Cors__AllowedOrigins__0` | `https://flaudaa-web-c3c5ash8agbff0dk.canadacentral-01.azurewebsites.net` |
+
+You can set the database string under **Connection strings** instead: name **`DefaultConnection`**, type **SQLAzure**, same value — .NET maps both.
 
 ### SQL connection (Active Directory Default)
 
@@ -46,14 +54,13 @@ Test API: `https://flaudaa-dwf9bhg5e8g6bebv.canadacentral-01.azurewebsites.net/s
 
 ---
 
-## Web app (frontend) — not created yet
+## Web app (frontend) — flaudaa-web
 
-You only have **one** App Service (`flaudaa`) = API. Create a **second** App Service for the website:
+URL: `https://flaudaa-web-c3c5ash8agbff0dk.canadacentral-01.azurewebsites.net`
 
-1. Portal → **Create** → **Web App**
-2. Name e.g. **flaudaa-web**, same plan **ASP-flaud-8c0f**, region **Canada Central**
-3. Runtime: **Node 20 LTS** (static site after build) or keep default and deploy static files
-5. **GitHub secret for web deploy** (required):
+The default Azure “waiting for your content” page means **no successful deploy** yet (empty `wwwroot`) or the app is not serving static files.
+
+1. **GitHub secret for web deploy** (required):
    - **flaudaa-web** → **Overview** → **Download publish profile**
    - GitHub repo → **Settings** → **Secrets and variables** → **Actions** → **New repository secret**
    - Name: `AZURE_WEBAPP_PUBLISH_PROFILE`
@@ -61,9 +68,19 @@ You only have **one** App Service (`flaudaa`) = API. Create a **second** App Ser
 
    The web workflow uses this profile. OIDC secrets from **flaudaa** (API) cannot deploy to **flaudaa-web** — that causes `Resource flaudaa-web doesn't exist`.
 
-6. Optional on **flaudaa-web** → **Configuration** → **Startup Command** (static SPA):
+2. Push to `main` or run workflow **Build and deploy frontend to Azure Web App - flaudaa-web** (Actions tab → Run workflow).
+
+3. Confirm the deploy job log shows `publish-profile: ***` and **succeeds**. If you see “No credentials found”, add the secret above.
+
+4. The build ships `index.html` + assets + a small `package.json` (`serve`) so App Service runs `npm start` after deploy.
+
+5. **flaudaa-web** → **Configuration** → **Application settings**:
+   - `SCM_DO_BUILD_DURING_DEPLOYMENT` = `true` (if `npm install` does not run on deploy)
+   - `WEBSITES_PORT` = `8080`
+
+6. Fallback startup command (if the site still shows the placeholder after a green deploy):
    ```bash
-   npx -y serve -s /home/site/wwwroot -l 8080
+   npm start
    ```
 
 Add API CORS origin for the web URL.

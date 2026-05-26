@@ -1,0 +1,14 @@
+{
+  "name": "flaudaa-web",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "start": "serve -s . -l 8080"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "serve": "^14.2.4"
+  }
+}

@@ -15,8 +15,16 @@ public class SqlConnectionFactory : ISqlConnectionFactory
 
     public SqlConnectionFactory(IConfiguration configuration)
     {
-        _connectionString = configuration.GetConnectionString("DefaultConnection")
-            ?? throw new InvalidOperationException("Connection string 'DefaultConnection' is not configured.");
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
+        if (string.IsNullOrWhiteSpace(connectionString))
+        {
+            throw new InvalidOperationException(
+                "Connection string 'DefaultConnection' is not configured. " +
+                "In Azure App Service (flaudaa), set Application setting or Connection string: " +
+                "ConnectionStrings__DefaultConnection.");
+        }
+
+        _connectionString = connectionString;
     }
 
     public IDbConnection CreateConnection() => new SqlConnection(_connectionString);
