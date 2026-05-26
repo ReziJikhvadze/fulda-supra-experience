@@ -1,0 +1,38 @@
+# Visual Studio / Rider
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build output
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+publish/
+*.log
+
+# NuGet
+*.nupkg
+**/packages/*
+!**/packages/build/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Node (frontend)
+node_modules/
+dist/
+.output/
+.env
+.env.local
+
+# App secrets (never commit)
+appsettings.*.local.json
+secrets.json
+
+# IDE artifacts
+*.rsuser
+.idea/
