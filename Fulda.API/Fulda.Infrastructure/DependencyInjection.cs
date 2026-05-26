@@ -1,0 +1,64 @@
+using System.Text;
+using Fulda.Application.Interfaces.Repositories;
+using Fulda.Application.Interfaces.Services;
+using Fulda.Application.Services;
+using Fulda.Infrastructure.Auth;
+using Fulda.Infrastructure.Data;
+using Fulda.Infrastructure.Options;
+using Fulda.Infrastructure.Repositories;
+using Fulda.Infrastructure.Services;
+using Fulda.Infrastructure.Storage;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+
+namespace Fulda.Infrastructure;
+
+public static class DependencyInjection
+{
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
+        services.Configure<BlobStorageSettings>(configuration.GetSection(BlobStorageSettings.SectionName));
+
+        services.AddSingleton<ISqlConnectionFactory, SqlConnectionFactory>();
+        services.AddScoped<IReservationRepository, ReservationRepository>();
+        services.AddScoped<IMenuRepository, MenuRepository>();
+        services.AddScoped<IWineRepository, WineRepository>();
+        services.AddScoped<IStaffRepository, StaffRepository>();
+        services.AddScoped<IAdminUserRepository, AdminUserRepository>();
+
+        services.AddScoped<ReservationService>();
+        services.AddScoped<MenuService>();
+        services.AddScoped<WineService>();
+        services.AddScoped<StaffService>();
+
+        services.AddSingleton<JwtTokenService>();
+        services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IBlobStorageService, BlobStorageService>();
+
+        var jwt = configuration.GetSection(JwtSettings.SectionName).Get<JwtSettings>()
+            ?? throw new InvalidOperationException("JWT settings are not configured.");
+
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = jwt.Issuer,
+                    ValidAudience = jwt.Audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.Secret)),
+                    ClockSkew = TimeSpan.FromMinutes(1)
+                };
+            });
+
+        services.AddAuthorization();
+
+        return services;
+    }
+}

@@ -1,0 +1,12 @@
+C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Domain\bin\Debug\net8.0\Fulda.Domain.deps.json
+C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Domain\bin\Debug\net8.0\Fulda.Domain.dll
+C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Domain\bin\Debug\net8.0\Fulda.Domain.pdb
+C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Domain\obj\Debug\net8.0\Fulda.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Domain\obj\Debug\net8.0\Fulda.Domain.AssemblyInfoInputs.cache
+C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Domain\obj\Debug\net8.0\Fulda.Domain.AssemblyInfo.cs
+C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Domain\obj\Debug\net8.0\Fulda.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Domain\obj\Debug\net8.0\Fulda.Domain.sourcelink.json
+C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Domain\obj\Debug\net8.0\Fulda.Domain.dll
+C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Domain\obj\Debug\net8.0\refint\Fulda.Domain.dll
+C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Domain\obj\Debug\net8.0\Fulda.Domain.pdb
+C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Domain\obj\Debug\net8.0\ref\Fulda.Domain.dll

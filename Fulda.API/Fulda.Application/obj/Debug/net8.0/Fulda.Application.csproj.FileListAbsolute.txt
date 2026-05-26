@@ -1,0 +1,16 @@
+C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Application\bin\Debug\net8.0\Fulda.Application.deps.json
+C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Application\bin\Debug\net8.0\Fulda.Application.dll
+C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Application\bin\Debug\net8.0\Fulda.Application.pdb
+C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Application\bin\Debug\net8.0\Fulda.Domain.dll
+C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Application\bin\Debug\net8.0\Fulda.Domain.pdb
+C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Application\obj\Debug\net8.0\Fulda.Application.csproj.AssemblyReference.cache
+C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Application\obj\Debug\net8.0\Fulda.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Application\obj\Debug\net8.0\Fulda.Application.AssemblyInfoInputs.cache
+C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Application\obj\Debug\net8.0\Fulda.Application.AssemblyInfo.cs
+C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Application\obj\Debug\net8.0\Fulda.Application.csproj.CoreCompileInputs.cache
+C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Application\obj\Debug\net8.0\Fulda.Application.sourcelink.json
+C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Application\obj\Debug\net8.0\Fulda.Ap.56EA1736.Up2Date
+C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Application\obj\Debug\net8.0\Fulda.Application.dll
+C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Application\obj\Debug\net8.0\refint\Fulda.Application.dll
+C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Application\obj\Debug\net8.0\Fulda.Application.pdb
+C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Application\obj\Debug\net8.0\ref\Fulda.Application.dll

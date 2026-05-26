@@ -1,0 +1,64 @@
+2026-05-26 00:15:29.671 +04:00 [INF] Now listening on: http://localhost:5116
+2026-05-26 00:15:29.696 +04:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-05-26 00:15:29.697 +04:00 [INF] Hosting environment: Development
+2026-05-26 00:15:29.697 +04:00 [INF] Content root path: C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.API
+2026-05-26 00:21:18.896 +04:00 [WRN] Failed to determine the https port for redirect.
+2026-05-26 00:21:19.018 +04:00 [ERR] HTTP POST /api/reservations responded 500 in 129.9848 ms
+System.NotSupportedException: The member ReservationDate of type System.DateOnly cannot be used as a parameter value
+   at Dapper.SqlMapper.LookupDbType(Type type, String name, Boolean demand, ITypeHandler& handler) in /_/Dapper/SqlMapper.cs:line 530
+   at Dapper.SqlMapper.CreateParamInfoGenerator(Identity identity, Boolean checkForDuplicates, Boolean removeUnused, IList`1 literals) in /_/Dapper/SqlMapper.cs:line 2693
+   at Dapper.SqlMapper.GetCacheInfo(Identity identity, Object exampleParameters, Boolean addToCache) in /_/Dapper/SqlMapper.cs:line 1881
+   at Dapper.SqlMapper.ExecuteScalarImplAsync[T](IDbConnection cnn, CommandDefinition command) in /_/Dapper/SqlMapper.Async.cs:line 1232
+   at Fulda.Infrastructure.Repositories.ReservationRepository.CreateAsync(Reservation reservation, CancellationToken ct) in C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Infrastructure\Repositories\ReservationRepository.cs:line 80
+   at Fulda.Application.Services.ReservationService.CreateAsync(CreateReservationRequest request, CancellationToken ct) in C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Application\Services\ReservationService.cs:line 43
+   at Fulda.API.Controllers.ReservationsController.Create(CreateReservationRequest request, CancellationToken ct) in C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.API\Controllers\ReservationsController.cs:line 62
+   at lambda_method6(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.RateLimiting.RateLimitingMiddleware.InvokeInternal(HttpContext context, EnableRateLimitingAttribute enableRateLimitingAttribute)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+2026-05-26 00:21:19.042 +04:00 [ERR] Unhandled exception for POST /api/reservations
+System.NotSupportedException: The member ReservationDate of type System.DateOnly cannot be used as a parameter value
+   at Dapper.SqlMapper.LookupDbType(Type type, String name, Boolean demand, ITypeHandler& handler) in /_/Dapper/SqlMapper.cs:line 530
+   at Dapper.SqlMapper.CreateParamInfoGenerator(Identity identity, Boolean checkForDuplicates, Boolean removeUnused, IList`1 literals) in /_/Dapper/SqlMapper.cs:line 2693
+   at Dapper.SqlMapper.GetCacheInfo(Identity identity, Object exampleParameters, Boolean addToCache) in /_/Dapper/SqlMapper.cs:line 1881
+   at Dapper.SqlMapper.ExecuteScalarImplAsync[T](IDbConnection cnn, CommandDefinition command) in /_/Dapper/SqlMapper.Async.cs:line 1232
+   at Fulda.Infrastructure.Repositories.ReservationRepository.CreateAsync(Reservation reservation, CancellationToken ct) in C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Infrastructure\Repositories\ReservationRepository.cs:line 80
+   at Fulda.Application.Services.ReservationService.CreateAsync(CreateReservationRequest request, CancellationToken ct) in C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.Application\Services\ReservationService.cs:line 43
+   at Fulda.API.Controllers.ReservationsController.Create(CreateReservationRequest request, CancellationToken ct) in C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.API\Controllers\ReservationsController.cs:line 62
+   at lambda_method6(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.RateLimiting.RateLimitingMiddleware.InvokeInternal(HttpContext context, EnableRateLimitingAttribute enableRateLimitingAttribute)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Serilog.AspNetCore.RequestLoggingMiddleware.Invoke(HttpContext httpContext)
+   at Fulda.API.Middleware.ExceptionHandlingMiddleware.InvokeAsync(HttpContext context) in C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.API\Middleware\ExceptionHandlingMiddleware.cs:line 22
+2026-05-26 00:21:21.390 +04:00 [INF] HTTP POST /api/auth/login responded 200 in 297.0173 ms
+2026-05-26 00:22:03.195 +04:00 [INF] HTTP POST /api/auth/login responded 200 in 256.2481 ms
+2026-05-26 00:23:10.652 +04:00 [INF] Now listening on: http://localhost:5116
+2026-05-26 00:23:10.676 +04:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-05-26 00:23:10.677 +04:00 [INF] Hosting environment: Development
+2026-05-26 00:23:10.677 +04:00 [INF] Content root path: C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.API
+2026-05-26 00:23:18.573 +04:00 [WRN] Failed to determine the https port for redirect.
+2026-05-26 00:23:18.718 +04:00 [INF] HTTP POST /api/reservations responded 201 in 153.4781 ms

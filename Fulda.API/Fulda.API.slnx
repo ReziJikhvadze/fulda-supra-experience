@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Fulda.API/Fulda.API.csproj" />
+  <Project Path="Fulda.Application/Fulda.Application.csproj" />
+  <Project Path="Fulda.Domain/Fulda.Domain.csproj" />
+  <Project Path="Fulda.Infrastructure/Fulda.Infrastructure.csproj" />
+</Solution>

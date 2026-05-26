@@ -1,0 +1,6 @@
+@Fulda.API_HostAddress = http://localhost:5116
+
+GET {{Fulda.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,66 @@
+# See https://aka.ms/yaml for Azure DevOps pipeline reference
+
+trigger:
+  branches:
+    include:
+      - main
+      - master
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  buildConfiguration: Release
+  dotnetVersion: "8.0.x"
+  sqlConnectionString: $(DefaultConnection)
+  jwtSecret: $(JwtSecret)
+  azureStorageConnection: $(AzureStorageConnectionString)
+
+stages:
+  - stage: Build
+    displayName: Build and Test
+    jobs:
+      - job: BuildJob
+        steps:
+          - task: UseDotNet@2
+            displayName: Install .NET SDK
+            inputs:
+              packageType: sdk
+              version: $(dotnetVersion)
+
+          - script: dotnet restore Fulda.API/Fulda.API.slnx
+            displayName: Restore
+
+          - script: dotnet build Fulda.API/Fulda.API.slnx --configuration $(buildConfiguration) --no-restore
+            displayName: Build
+
+          - script: dotnet test Fulda.API/Fulda.API.slnx --configuration $(buildConfiguration) --no-build --verbosity normal
+            displayName: Test
+            continueOnError: true
+
+          - script: dotnet publish Fulda.API/Fulda.API/Fulda.API.csproj --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/api
+            displayName: Publish API
+
+          - task: PublishBuildArtifacts@1
+            displayName: Publish artifacts
+            inputs:
+              PathtoPublish: $(Build.ArtifactStagingDirectory)/api
+              ArtifactName: drop
+
+  - stage: Deploy
+    displayName: Deploy to Azure
+    dependsOn: Build
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - deployment: DeployApp
+        environment: production
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: AzureWebApp@1
+                  displayName: Deploy to Azure App Service
+                  inputs:
+                    azureSubscription: $(AzureServiceConnection)
+                    appName: $(AzureAppServiceName)
+                    package: $(Pipeline.Workspace)/drop
