@@ -5,7 +5,13 @@ You can ignore **`flaudaa-web`** for now.
 
 ## 1. Azure Portal → **flaudaa** → **Environment variables**
 
-Add **two** settings (then **Save** and **Restart**) — use the values from the assistant chat or `Fulda.API/Fulda.API/appsettings.Production.local.json` on your PC (gitignored).
+Add **three** settings (then **Save** and **Restart**):
+
+| Name | Value |
+|------|--------|
+| `ASPNETCORE_ENVIRONMENT` | `Production` |
+| `ConnectionStrings__DefaultConnection` | Azure SQL string (not LocalDB) |
+| `Jwt__Secret` | Your JWT secret |
 
 Optional later: `AzureStorage__ConnectionString` (for admin photo uploads).
 

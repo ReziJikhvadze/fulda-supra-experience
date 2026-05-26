@@ -38,6 +38,16 @@ public class HealthController : ControllerBase
             }
         }
 
+        string? hint = null;
+        if (!hasConnectionString)
+            hint = "Add ConnectionStrings__DefaultConnection in flaudaa (Azure SQL, not LocalDB). Save and Restart.";
+        else if (!hasJwt)
+            hint = "Add Jwt__Secret in flaudaa → Environment variables → Save → Restart.";
+        else if (!dbOk && dbError?.Contains("LocalDB", StringComparison.OrdinalIgnoreCase) == true)
+            hint = "Azure is using LocalDB. Set ASPNETCORE_ENVIRONMENT=Production and ConnectionStrings__DefaultConnection to your Azure SQL string on flaudaa.";
+        else if (!dbOk)
+            hint = "SQL unreachable. Check firewall, managed identity user [flaudaa], and connection string on flaudaa.";
+
         return Ok(new
         {
             status = hasConnectionString && hasJwt && dbOk ? "healthy" : "needs_configuration",
@@ -45,11 +55,8 @@ public class HealthController : ControllerBase
             jwtConfigured = hasJwt,
             databaseReachable = dbOk,
             databaseError = dbError,
-            hint = !hasConnectionString
-                ? "Add ConnectionStrings__DefaultConnection in flaudaa → Environment variables → Save → Restart"
-                : !hasJwt
-                    ? "Add Jwt__Secret in flaudaa → Environment variables → Save → Restart"
-                    : null
+            environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"),
+            hint
         });
     }
 }
