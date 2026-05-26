@@ -52,10 +52,12 @@ public class HealthController : ControllerBase
         {
             status = hasConnectionString && hasJwt && dbOk ? "healthy" : "needs_configuration",
             connectionStringConfigured = hasConnectionString,
+            connectionSource = _sql.ConnectionSource,
             jwtConfigured = hasJwt,
             databaseReachable = dbOk,
             databaseError = dbError,
-            environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"),
+            environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")
+                ?? Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT"),
             hint
         });
     }

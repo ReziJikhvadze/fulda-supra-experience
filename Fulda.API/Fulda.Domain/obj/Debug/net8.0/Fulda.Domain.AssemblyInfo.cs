@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Fulda.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+096030501ba59bbab07a0c317f997d11b2cc0c2b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e0e3ef5d5b264f18616852c8ecaf9d799b45d92b")]
 [assembly: System.Reflection.AssemblyProductAttribute("Fulda.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Fulda.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
