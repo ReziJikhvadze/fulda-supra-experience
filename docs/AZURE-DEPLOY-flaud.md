@@ -34,7 +34,7 @@ You can set the database string under **Connection strings** instead: name **`De
 ### SQL connection (Active Directory Default)
 
 ```
-Server=tcp:flaudaa-server.database.windows.net,1433;Initial Catalog=flaudaa-database;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;Authentication=Active Directory Default;
+Server=tcp:flaudaa-server.database.windows.net,1433;Initial Catalog=flaudaa-database;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;Authentication=Active Directory Default;
 ```
 
 Required:

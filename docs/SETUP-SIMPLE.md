@@ -25,7 +25,7 @@ ALTER ROLE db_datawriter ADD MEMBER [flaudaa_app];
 3. Connection string for step 1:
 
 ```
-Server=tcp:flaudaa-server.database.windows.net,1433;Initial Catalog=flaudaa-database;User ID=flaudaa_app;Password=PickAStrongPassword123!;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+Server=tcp:flaudaa-server.database.windows.net,1433;Initial Catalog=flaudaa-database;User ID=flaudaa_app;Password=PickAStrongPassword123!;Encrypt=True;TrustServerCertificate=True;Connection Timeout=30;
 ```
 
 4. **flaudaa-server** → **Networking** → allow **Azure services** (or your IP for testing).

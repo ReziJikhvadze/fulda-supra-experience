@@ -39,7 +39,15 @@ public static class DependencyInjection
         services.AddScoped<IBlobStorageService, BlobStorageService>();
 
         var jwt = configuration.GetSection(JwtSettings.SectionName).Get<JwtSettings>()
-            ?? throw new InvalidOperationException("JWT settings are not configured.");
+            ?? new JwtSettings();
+
+        var jwtSecret = jwt.Secret;
+        if (string.IsNullOrWhiteSpace(jwtSecret))
+        {
+            // Lets the app start so /api/health can report missing Jwt__Secret
+            jwtSecret = "FuldaConfigureJwtSecretInAzurePortalMin32Chars!";
+            jwt.Secret = jwtSecret;
+        }
 
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
@@ -52,7 +60,7 @@ public static class DependencyInjection
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = jwt.Issuer,
                     ValidAudience = jwt.Audience,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.Secret)),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret)),
                     ClockSkew = TimeSpan.FromMinutes(1)
                 };
             });

@@ -81,7 +81,7 @@ resource web 'Microsoft.Web/sites@2023-01-01' = {
         }
         {
           name: 'ConnectionStrings__DefaultConnection'
-          value: 'Server=tcp:${sql.properties.fullyQualifiedDomainName},1433;Initial Catalog=${databaseName};User ID=${sqlAdminLogin};Password=${sqlAdminPassword};Encrypt=True;TrustServerCertificate=False;'
+          value: 'Server=tcp:${sql.properties.fullyQualifiedDomainName},1433;Initial Catalog=${databaseName};User ID=${sqlAdminLogin};Password=${sqlAdminPassword};Encrypt=True;TrustServerCertificate=True;'
         }
         {
           name: 'AzureStorage__ConnectionString'

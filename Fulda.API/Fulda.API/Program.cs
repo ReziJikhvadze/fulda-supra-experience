@@ -130,9 +130,13 @@ try
         Log.Warning("SPA folder not found at {SpaPath}. Push to main to deploy the website with the API.", spaPath);
     }
 
-    if (string.IsNullOrWhiteSpace(app.Configuration.GetConnectionString("DefaultConnection")))
+    var sqlFactory = app.Services.GetRequiredService<ISqlConnectionFactory>();
+    if (!sqlFactory.IsConfigured)
     {
-        Log.Warning("ConnectionStrings__DefaultConnection is not set. API and admin will not work until you add it in Azure (flaudaa → Environment variables). See docs/SETUP-SIMPLE.md.");
+        Log.Warning(
+            "ConnectionStrings__DefaultConnection is missing in Azure. " +
+            "Add it under flaudaa → Environment variables → App settings, then Save and Restart. " +
+            "Check /api/health after deploy.");
     }
     else
     {
@@ -141,10 +145,11 @@ try
             using var scope = app.Services.CreateScope();
             var seeder = scope.ServiceProvider.GetRequiredService<DatabaseSeeder>();
             await seeder.SeedAdminUserAsync();
+            Log.Information("Admin user seed completed.");
         }
         catch (Exception ex)
         {
-            Log.Warning(ex, "Could not seed admin user. Check SQL connection string and firewall.");
+            Log.Warning(ex, "Could not seed admin user. Check SQL firewall, managed identity, and Entra access.");
         }
     }
 
