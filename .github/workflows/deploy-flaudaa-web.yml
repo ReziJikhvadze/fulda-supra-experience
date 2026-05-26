@@ -1,0 +1,43 @@
+# Frontend only → Azure App Service flaudaa-web
+
+name: deploy-flaudaa-web
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Fulda.API/Fulda.API/wwwroot/**'
+      - 'Fulda.API/Fulda.API/wwwroot/azure-host/**'
+      - '.github/workflows/deploy-flaudaa-web.yml'
+  workflow_dispatch:
+
+env:
+  WEB_ROOT: Fulda.API/Fulda.API/wwwroot
+  VITE_API_URL: https://flaudaa-dwf9bhg5e8g6bebv.canadacentral-01.azurewebsites.net
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build SPA for flaudaa-web
+        working-directory: ${{ env.WEB_ROOT }}
+        run: npm ci && npm run build:azure
+        env:
+          VITE_API_URL: ${{ env.VITE_API_URL }}
+
+      - name: Add Node host files
+        run: |
+          cp ${{ env.WEB_ROOT }}/azure-host/package.json ${{ env.WEB_ROOT }}/dist/azure/package.json
+
+      - name: Deploy to flaudaa-web
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: flaudaa-web
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ${{ env.WEB_ROOT }}/dist/azure
