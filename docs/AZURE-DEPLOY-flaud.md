@@ -53,10 +53,18 @@ You only have **one** App Service (`flaudaa`) = API. Create a **second** App Ser
 1. Portal → **Create** → **Web App**
 2. Name e.g. **flaudaa-web**, same plan **ASP-flaud-8c0f**, region **Canada Central**
 3. Runtime: **Node 20 LTS** (static site after build) or keep default and deploy static files
-4. **Deployment Center** → GitHub → same repo → workflow: `main_flaudaa-web.yml`
-5. App settings on **web** app: `VITE_API_URL` = your API URL above
+5. **GitHub secret for web deploy** (required):
+   - **flaudaa-web** → **Overview** → **Download publish profile**
+   - GitHub repo → **Settings** → **Secrets and variables** → **Actions** → **New repository secret**
+   - Name: `AZURE_WEBAPP_PUBLISH_PROFILE`
+   - Value: paste the entire `.PublishSettings` XML file
 
-Update `.github/workflows/main_flaudaa-web.yml` → `WEBAPP_NAME: flaudaa-web` to match the name you chose.
+   The web workflow uses this profile. OIDC secrets from **flaudaa** (API) cannot deploy to **flaudaa-web** — that causes `Resource flaudaa-web doesn't exist`.
+
+6. Optional on **flaudaa-web** → **Configuration** → **Startup Command** (static SPA):
+   ```bash
+   npx -y serve -s /home/site/wwwroot -l 8080
+   ```
 
 Add API CORS origin for the web URL.
 
