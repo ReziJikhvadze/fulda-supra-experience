@@ -1,5 +1,5 @@
 # Build static SPA for Azure App Service (flaudaa-web).
-# Deploy uses a PUBLISH PROFILE for flaudaa-web (OIDC secrets from the API app only target flaudaa).
+# Requires GitHub secret: AZURE_WEBAPP_PUBLISH_PROFILE (full XML from flaudaa-web publish profile).
 
 name: Build and deploy frontend to Azure Web App - flaudaa-web
 
@@ -60,9 +60,21 @@ jobs:
           name: web-app
           path: web-app
 
+      - name: Check publish profile secret exists
+        env:
+          PUBLISH_PROFILE: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        run: |
+          if [ -z "$PUBLISH_PROFILE" ]; then
+            echo "::error::Missing GitHub secret AZURE_WEBAPP_PUBLISH_PROFILE."
+            echo "Add it: Repo → Settings → Secrets and variables → Actions → New repository secret"
+            echo "Name must be exactly: AZURE_WEBAPP_PUBLISH_PROFILE"
+            exit 1
+          fi
+          echo "Publish profile secret is set."
+
       - name: Deploy to Azure Web App (flaudaa-web)
         uses: azure/webapps-deploy@v3
         with:
-          app-name: ${{ env.WEBAPP_NAME }}
+          app-name: flaudaa-web
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: web-app
