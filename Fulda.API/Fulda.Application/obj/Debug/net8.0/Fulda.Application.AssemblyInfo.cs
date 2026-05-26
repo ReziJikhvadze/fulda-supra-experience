@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Fulda.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+974ac951d3476753c897f1a202aac84e553751ff")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d2065c712fb3880cf706e4abbbebbb56001f6c08")]
 [assembly: System.Reflection.AssemblyProductAttribute("Fulda.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Fulda.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
