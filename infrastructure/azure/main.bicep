@@ -89,7 +89,7 @@ resource web 'Microsoft.Web/sites@2023-01-01' = {
         }
         {
           name: 'AzureStorage__ContainerName'
-          value: 'fulda-images'
+          value: 'fulda-image'
         }
       ]
     }

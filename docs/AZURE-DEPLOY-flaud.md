@@ -83,6 +83,6 @@ For auto-deploy on commit, keep using GitHub Actions (Deployment Center), not on
 
 ## Optional: Blob storage
 
-Create a Storage account in **flaud**, container `fulda-images`, then:
+Create a Storage account in **flaud**, container `fulda-image`, then:
 
 `AzureStorage__ConnectionString` = storage connection string on **flaudaa** API app.

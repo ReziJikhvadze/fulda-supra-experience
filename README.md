@@ -122,7 +122,7 @@ Set application settings in Azure Portal:
 ConnectionStrings__DefaultConnection = <Azure SQL connection string>
 Jwt__Secret = <strong random secret>
 AzureStorage__ConnectionString = <storage account connection string>
-AzureStorage__ContainerName = fulda-images
+AzureStorage__ContainerName = fulda-image
 ASPNETCORE_ENVIRONMENT = Production
 ```
 
