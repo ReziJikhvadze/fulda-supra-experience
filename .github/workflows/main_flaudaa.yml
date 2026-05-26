@@ -6,9 +6,7 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'Fulda.API/**'
-      - '.github/workflows/main_flaudaa.yml'
+      - master
   workflow_dispatch:
 
 env:
