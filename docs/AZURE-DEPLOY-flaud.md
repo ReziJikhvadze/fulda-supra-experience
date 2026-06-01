@@ -74,14 +74,14 @@ The default Azure “waiting for your content” page means **no successful depl
 
 4. The build ships `index.html` + assets + a small `package.json` (`serve`) so App Service runs `npm start` after deploy.
 
-5. **flaudaa-web** → **Configuration** → **Application settings**:
-   - `SCM_DO_BUILD_DURING_DEPLOYMENT` = `true` (if `npm install` does not run on deploy)
+5. **flaudaa-web** → **Environment variables** (or **Configuration**) → **Application settings**:
+   - `SCM_DO_BUILD_DURING_DEPLOYMENT` = **`false`**
    - `WEBSITES_PORT` = `8080`
 
-6. Fallback startup command (if the site still shows the placeholder after a green deploy):
-   ```bash
-   npm start
-   ```
+6. **Startup command** (optional): **Environment variables** → **Platform settings** → `npm start`  
+   If you do not see it, run:  
+   `az webapp config set -g flaud -n flaudaa-web --startup-file "npm start"`  
+   Or rely on `package.json` `"start": "serve -s . -l 8080"` at wwwroot (deploy includes it).
 
 Add API CORS origin for the web URL.
 
