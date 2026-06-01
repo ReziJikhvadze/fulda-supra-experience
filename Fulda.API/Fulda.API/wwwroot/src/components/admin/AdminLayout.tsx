@@ -1,6 +1,7 @@
 import { Link, Outlet, useNavigate, useRouterState } from "@tanstack/react-router";
 import { Toaster } from "@/components/ui/sonner";
 import { clearAuth, getAuth } from "@/lib/auth";
+import { Logo } from "@/components/site/Logo";
 
 const nav = [
   { to: "/admin", label: "Reservations", exact: true },
@@ -34,8 +35,8 @@ export function AdminLayout() {
       <div className="min-h-screen bg-cream text-walnut flex">
       <aside className="w-56 shrink-0 bg-walnut text-cream flex flex-col">
         <div className="p-6 border-b border-cream/10">
-          <p className="font-serif italic text-xl">Am Stockhaus</p>
-          <p className="text-[10px] uppercase tracking-[0.2em] text-gold mt-1">Admin</p>
+          <Logo variant="admin" />
+          <p className="text-[10px] uppercase tracking-[0.2em] text-gold mt-2">Admin</p>
         </div>
         <nav className="flex-1 p-4 space-y-1">
           {nav.map((item) => {

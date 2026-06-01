@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { Logo } from "./Logo";
 
 export function SiteNav() {
   const { t } = useTranslation();
@@ -31,8 +32,14 @@ export function SiteNav() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 md:px-10 text-cream">
-        <a href="#top" className="text-2xl font-serif italic tracking-tight">
-          Am&nbsp;Stockhaus
+        <a
+          href="#top"
+          className={`block shrink-0 rounded-md px-2 py-1 ${
+            scrolled ? "" : "bg-walnut/85 backdrop-blur-sm"
+          }`}
+          aria-label="Home"
+        >
+          <Logo variant="nav" />
         </a>
         <div className="hidden md:flex gap-8 text-[11px] uppercase tracking-[0.22em] font-medium">
           {links.map((l) => (

@@ -6,9 +6,6 @@ name: deploy-flaudaa-web
 on:
   push:
     branches: [main]
-    paths:
-      - 'Fulda.API/Fulda.API/wwwroot/**'
-      - '.github/workflows/deploy-flaudaa-web.yml'
   workflow_dispatch:
 
 env:

@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { authApi } from "@/lib/api";
 import { setAuth } from "@/lib/auth";
+import { LogoOnDarkPanel } from "@/components/site/Logo";
 
 export const Route = createFileRoute("/admin/login")({
   component: AdminLoginPage,
@@ -44,9 +45,9 @@ function AdminLoginPage() {
         onSubmit={onSubmit}
         className="w-full max-w-md border border-gold/30 bg-cream p-10 space-y-6"
       >
-        <div className="text-center">
-          <h1 className="font-serif italic text-3xl text-wine">Am Stockhaus</h1>
-          <p className="text-[10px] uppercase tracking-[0.25em] text-gold mt-2">Admin Login</p>
+        <div className="text-center flex flex-col items-center">
+          <LogoOnDarkPanel variant="admin" className="[&_img]:!h-28" />
+          <p className="text-[10px] uppercase tracking-[0.25em] text-gold mt-3">Admin Login</p>
         </div>
         <div>
           <label className="text-xs uppercase tracking-wider text-walnut/60">Username</label>

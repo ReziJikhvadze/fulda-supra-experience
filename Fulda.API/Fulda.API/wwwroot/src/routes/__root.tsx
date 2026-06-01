@@ -74,11 +74,11 @@ const headConfig = () => ({
   meta: [
     { charSet: "utf-8" },
     { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { title: "Am Stockhaus — Georgian Restaurant in Fulda" },
+    { title: "Tabla — Georgische Küche & Wein · Fulda" },
     {
       name: "description",
       content:
-        "Am Stockhaus — Georgian restaurant in Fulda. Authentic cuisine, wine, and hospitality.",
+        "Tabla — Georgian cuisine and wine in Fulda. Authentic dishes, wine, and hospitality.",
     },
   ],
   links: [

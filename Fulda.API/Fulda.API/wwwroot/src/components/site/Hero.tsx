@@ -8,7 +8,7 @@ export function Hero() {
     <section id="top" className="relative h-screen min-h-[680px] w-full overflow-hidden bg-walnut">
       <img
         src={heroImg}
-        alt="Georgian supra dinner table with khachapuri, khinkali and wine at Am Stockhaus Fulda"
+        alt="Georgian supra dinner table with khachapuri, khinkali and wine at Tabla Fulda"
         width={1920}
         height={1280}
         className="absolute inset-0 h-full w-full object-cover opacity-85"

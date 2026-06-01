@@ -42,7 +42,13 @@ The repo ships `.deployment` with `SCM_DO_BUILD_DURING_DEPLOYMENT=false` in each
 
 1. **flaudaa-web** → **Overview** → **Download publish profile**
 2. GitHub → repo **Settings** → **Secrets** → `AZURE_WEBAPP_PUBLISH_PROFILE` = full XML
-3. Push to `main` or run workflow **deploy-flaudaa-web**
+3. Push to **`main`** or run workflow **deploy-flaudaa-web** manually (Actions → deploy-flaudaa-web → **Run workflow**).
+
+**Pipeline did not start after push?**
+- Confirm branch is **`main`** (not `master` or a feature branch).
+- Repo **Settings** → **Actions** → **General** → allow actions.
+- Path filters were removed — any push to `main` runs this workflow.
+- Or trigger manually: **Actions** → **deploy-flaudaa-web** → **Run workflow**.
 
 Workflow builds SPA, runs `npm install` for `serve` in CI, deploys **without** Oryx rebuild.
 

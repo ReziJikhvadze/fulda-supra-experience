@@ -12,7 +12,7 @@ export const de = {
     title1: "Georgische Küche",
     title2: "im Herzen von Fulda",
     subtitle:
-      "Traditionelle Aromen, herzliche Gastfreundschaft und unvergessliche georgische Abende am Stockhaus 10–12.",
+      "Traditionelle Aromen, herzliche Gastfreundschaft und unvergessliche georgische Abende bei Tabla.",
     viewMenu: "Speisekarte ansehen",
     reserve: "Tisch reservieren",
     scroll: "Scrollen",
@@ -26,7 +26,7 @@ export const de = {
       "In unserem Haus ist der Gast ein Geschenk Gottes. Jedes Khachapuri aus dem Ofen und jede geöffnete Flasche Saperavi ist ein Zeugnis unserer Gastfreundschaft.",
     badge: "Supra",
     badgeSub: "Das georgische Fest",
-    address: "Am Stockhaus 10–12 · Fulda",
+    address: "Tabla · Fulda",
   },
   signature: {
     eyebrow: "Handgefertigt für den Tisch",
@@ -131,7 +131,7 @@ export const de = {
     eyebrow: "Reservierung",
     title: "Reservieren Sie Ihren georgischen Tisch in Fulda",
     body:
-      "Besuchen Sie uns am Stockhaus 10–12 für handgemachte georgische Gerichte, warmen Wein und echte Gastfreundschaft.",
+      "Besuchen Sie uns bei Tabla für handgemachte georgische Gerichte, warmen Wein und echte Gastfreundschaft.",
     call: "Anrufen",
     whatsapp: "WhatsApp",
     whatsappCta: "Direkt schreiben",
@@ -159,9 +159,9 @@ export const de = {
   },
   contact: {
     eyebrow: "So finden Sie uns",
-    title: "Am Stockhaus 10–12",
+    title: "Tabla",
     address: "Adresse",
-    addressLines: "Am Stockhaus 10–12\n36037 Fulda, Deutschland",
+    addressLines: "10–12\n36037 Fulda, Deutschland",
     directions: "Route anzeigen",
     hours: "Öffnungszeiten",
     hoursLine: "Di — So · 17:00 — 23:00",

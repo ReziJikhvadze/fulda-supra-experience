@@ -1,6 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { Ornament } from "./Ornament";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { Logo } from "./Logo";
+import { BRAND_NAME } from "@/lib/brand";
 
 export function Footer() {
   const { t } = useTranslation();
@@ -16,7 +18,7 @@ export function Footer() {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 text-sm">
           <div>
-            <div className="text-xl font-serif italic mb-4">Am Stockhaus</div>
+            <Logo variant="footer" className="mb-4" />
             <p className="text-cream/60 font-light leading-relaxed">{t("footer.short")}</p>
           </div>
           <div>
@@ -43,7 +45,7 @@ export function Footer() {
         </div>
 
         <div className="mt-16 pt-8 border-t border-cream/10 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] uppercase tracking-[0.2em] text-cream/40">
-          <span>© {new Date().getFullYear()} Am Stockhaus — {t("footer.rights")}</span>
+          <span>© {new Date().getFullYear()} {BRAND_NAME} — {t("footer.rights")}</span>
           <div className="flex items-center gap-6">
             <LanguageSwitcher tone="light" />
             <span className="font-serif italic normal-case tracking-normal text-sm">

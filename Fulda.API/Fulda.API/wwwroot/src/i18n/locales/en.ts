@@ -12,7 +12,7 @@ export const en = {
     title1: "Georgian Cuisine",
     title2: "in the Heart of Fulda",
     subtitle:
-      "Traditional flavors, warm hospitality, and unforgettable Georgian dining at Am Stockhaus 10–12.",
+      "Traditional flavors, warm hospitality, and unforgettable Georgian dining at Tabla.",
     viewMenu: "View Menu",
     reserve: "Reserve a Table",
     scroll: "Scroll",
@@ -26,7 +26,7 @@ export const en = {
       "In our house, the guest is a gift from God. Every khachapuri from the oven and every bottle of Saperavi opened is a testament to our hospitality.",
     badge: "Supra",
     badgeSub: "The Georgian feast",
-    address: "Am Stockhaus 10–12 · Fulda",
+    address: "Tabla · Fulda",
   },
   signature: {
     eyebrow: "Hand-crafted for the table",
@@ -131,7 +131,7 @@ export const en = {
     eyebrow: "Reservation",
     title: "Reserve Your Georgian Table in Fulda",
     body:
-      "Join us at Am Stockhaus 10–12 for handmade Georgian dishes, warm wine, and true hospitality.",
+      "Join us at Tabla for handmade Georgian dishes, warm wine, and true hospitality.",
     call: "Call",
     whatsapp: "WhatsApp",
     whatsappCta: "Message us directly",
@@ -159,9 +159,9 @@ export const en = {
   },
   contact: {
     eyebrow: "Find Us",
-    title: "Am Stockhaus 10–12",
+    title: "Tabla",
     address: "Address",
-    addressLines: "Am Stockhaus 10–12\n36037 Fulda, Germany",
+    addressLines: "10–12\n36037 Fulda, Germany",
     directions: "Get Directions",
     hours: "Hours",
     hoursLine: "Tue — Sun · 17:00 — 23:00",

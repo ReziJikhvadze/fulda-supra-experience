@@ -11,10 +11,10 @@ import { Events } from "@/components/site/Events";
 import { Reservation } from "@/components/site/Reservation";
 import { Contact } from "@/components/site/Contact";
 import { Footer } from "@/components/site/Footer";
+import { BRAND_DESCRIPTION, BRAND_NAME, BRAND_TITLE } from "@/lib/brand";
 
-const TITLE = "Am Stockhaus — Georgian Restaurant in Fulda";
-const DESCRIPTION =
-  "Authentic Georgian cuisine in Fulda. Handmade khachapuri, khinkali, mtsvadi and Georgian wine at Am Stockhaus 10–12, 36037 Fulda.";
+const TITLE = BRAND_TITLE;
+const DESCRIPTION = BRAND_DESCRIPTION;
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -22,7 +22,7 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: TITLE },
       { name: "description", content: DESCRIPTION },
-      { name: "keywords", content: "Georgian restaurant Fulda, Georgian cuisine Fulda, Khachapuri Fulda, Khinkali Fulda, Georgian wine Fulda, Restaurant Am Stockhaus Fulda" },
+      { name: "keywords", content: "Tabla Fulda, Georgian restaurant Fulda, Georgian cuisine Fulda, Khachapuri Fulda, Khinkali Fulda, Georgian wine Fulda" },
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESCRIPTION },
       { property: "og:type", content: "restaurant" },
@@ -36,12 +36,12 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Restaurant",
-          name: "Am Stockhaus — Georgian Restaurant",
+          name: BRAND_NAME,
           servesCuisine: "Georgian",
           priceRange: "€€",
           address: {
             "@type": "PostalAddress",
-            streetAddress: "Am Stockhaus 10-12",
+            streetAddress: "10-12",
             postalCode: "36037",
             addressLocality: "Fulda",
             addressCountry: "DE",

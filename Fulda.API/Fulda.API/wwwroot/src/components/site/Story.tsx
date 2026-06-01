@@ -21,7 +21,7 @@ export function Story() {
         <div className="md:col-span-7 order-1 md:order-2 relative">
           <img
             src={storyImg}
-            alt="The dining room at Am Stockhaus Georgian Restaurant in Fulda"
+            alt="The dining room at Tabla Georgian restaurant in Fulda"
             loading="lazy"
             width={1200}
             height={1500}

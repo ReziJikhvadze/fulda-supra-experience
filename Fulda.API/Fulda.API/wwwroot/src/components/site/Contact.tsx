@@ -1,7 +1,9 @@
 import { useTranslation } from "react-i18next";
 import { Ornament } from "./Ornament";
 
-const ADDRESS_QUERY = encodeURIComponent("Am Stockhaus 10-12, 36037 Fulda, Germany");
+import { MAP_ADDRESS_QUERY } from "@/lib/brand";
+
+const ADDRESS_QUERY = encodeURIComponent(MAP_ADDRESS_QUERY);
 
 export function Contact() {
   const { t } = useTranslation();
@@ -22,7 +24,7 @@ export function Contact() {
           <div className="md:col-span-3">
             <div className="aspect-[4/3] w-full overflow-hidden border border-walnut/10">
               <iframe
-                title="Map to Am Stockhaus 10-12, 36037 Fulda"
+                title="Map to Tabla, 36037 Fulda"
                 src={`https://www.google.com/maps?q=${ADDRESS_QUERY}&output=embed`}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
