@@ -2,6 +2,6 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ActiveDebugProfile>https</ActiveDebugProfile>
-    <NameOfLastUsedPublishProfile>C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.API\Properties\PublishProfiles\flaudaa - Zip Deploy.pubxml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>C:\Users\Relloran\source\repos\fulda-supra-experience\.github\workflows\deploy-flaudaa-web.yml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>
