@@ -36,8 +36,8 @@
               "C:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.Application\\Fulda.Application.csproj": {
                 "projectPath": "C:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.Application\\Fulda.Application.csproj"
               },
-              "c:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.Infrastructure\\Fulda.Infrastructure.csproj": {
-                "projectPath": "c:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.Infrastructure\\Fulda.Infrastructure.csproj"
+              "C:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.Infrastructure\\Fulda.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.Infrastructure\\Fulda.Infrastructure.csproj"
               }
             }
           }
@@ -248,14 +248,14 @@
         }
       }
     },
-    "c:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.Infrastructure\\Fulda.Infrastructure.csproj": {
+    "C:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.Infrastructure\\Fulda.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.Infrastructure\\Fulda.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.Infrastructure\\Fulda.Infrastructure.csproj",
         "projectName": "Fulda.Infrastructure",
-        "projectPath": "c:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.Infrastructure\\Fulda.Infrastructure.csproj",
+        "projectPath": "C:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.Infrastructure\\Fulda.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\Relloran\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.Infrastructure\\obj\\",
+        "outputPath": "C:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

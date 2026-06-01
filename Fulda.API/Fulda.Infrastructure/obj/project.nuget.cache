@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gM3FO51J5Mg=",
+  "dgSpecHash": "YAcaLRIhM3k=",
   "success": true,
-  "projectFilePath": "c:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.Infrastructure\\Fulda.Infrastructure.csproj",
+  "projectFilePath": "C:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.Infrastructure\\Fulda.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Relloran\\.nuget\\packages\\azure.core\\1.51.1\\azure.core.1.51.1.nupkg.sha512",
     "C:\\Users\\Relloran\\.nuget\\packages\\azure.identity\\1.18.0\\azure.identity.1.18.0.nupkg.sha512",

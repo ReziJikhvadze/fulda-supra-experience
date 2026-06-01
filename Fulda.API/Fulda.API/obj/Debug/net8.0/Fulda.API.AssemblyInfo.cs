@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Fulda.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fc599aeb3c12b78675d70ce72b78aa5cf8c4efb6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9eb7de066979753e545702cd9b1dfe0f9d1a2a50")]
 [assembly: System.Reflection.AssemblyProductAttribute("Fulda.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Fulda.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -25,7 +25,7 @@ public class BlobStorageService : IBlobStorageService
         _localUploadsPath = Path.Combine(environment.ContentRootPath, "uploads");
         Directory.CreateDirectory(_localUploadsPath);
 
-        var connectionString = ResolveConnectionString();
+        var connectionString = ResolveConnectionString(out var source);
         if (string.IsNullOrWhiteSpace(connectionString))
         {
             _container = null;
@@ -36,29 +36,51 @@ public class BlobStorageService : IBlobStorageService
         {
             var serviceClient = new BlobServiceClient(connectionString);
             _container = serviceClient.GetBlobContainerClient(_settings.ContainerName);
+            _logger.LogInformation("Azure Blob storage configured via {Source}", source);
         }
         catch (FormatException ex)
         {
             throw new InvalidOperationException(
-                "AzureStorage connection string is invalid. In PowerShell use single quotes around the full string, " +
-                "or set AzureStorage__AccountName and AzureStorage__AccountKey instead of ConnectionString. " +
-                "Do not paste only the AccountKey — use the full Connection string from Access keys.",
+                "Azure Storage settings are invalid. Use EITHER:\n" +
+                "  AzureStorage__AccountName + AzureStorage__AccountKey (recommended), OR\n" +
+                "  AzureStorage__ConnectionString = full string from Access keys (single quotes in PowerShell).\n" +
+                "Remove AzureStorage__ConnectionString if you only set AccountKey there by mistake.",
                 ex);
         }
     }
 
-    private string? ResolveConnectionString()
+    private string? ResolveConnectionString(out string source)
     {
-        if (!string.IsNullOrWhiteSpace(_settings.ConnectionString))
-            return _settings.ConnectionString.Trim();
+        source = "none";
 
-        if (string.IsNullOrWhiteSpace(_settings.AccountName) || string.IsNullOrWhiteSpace(_settings.AccountKey))
-            return null;
+        if (!string.IsNullOrWhiteSpace(_settings.AccountName) && !string.IsNullOrWhiteSpace(_settings.AccountKey))
+        {
+            source = "AccountName+AccountKey";
+            return
+                $"DefaultEndpointsProtocol=https;AccountName={_settings.AccountName.Trim()};" +
+                $"AccountKey={_settings.AccountKey.Trim()};EndpointSuffix=core.windows.net";
+        }
 
-        return
-            $"DefaultEndpointsProtocol=https;AccountName={_settings.AccountName.Trim()};" +
-            $"AccountKey={_settings.AccountKey.Trim()};EndpointSuffix=core.windows.net";
+        var configured = _settings.ConnectionString.Trim();
+        if (!string.IsNullOrWhiteSpace(configured) && LooksLikeBlobConnectionString(configured))
+        {
+            source = "ConnectionString";
+            return configured;
+        }
+
+        if (!string.IsNullOrWhiteSpace(configured))
+        {
+            _logger.LogWarning(
+                "AzureStorage:ConnectionString is set but invalid for blob storage (wrong format?). " +
+                "Use AccountName+AccountKey or the full connection string from Access keys.");
+        }
+
+        return null;
     }
+
+    private static bool LooksLikeBlobConnectionString(string value) =>
+        value.Contains("AccountName=", StringComparison.OrdinalIgnoreCase) &&
+        value.Contains("AccountKey=", StringComparison.OrdinalIgnoreCase);
 
     public Task<string> UploadAsync(Stream stream, string fileName, string contentType, CancellationToken ct = default) =>
         UploadCoreAsync(stream, fileName, contentType, blobPath: null, ct);
