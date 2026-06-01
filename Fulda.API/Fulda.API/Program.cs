@@ -1,6 +1,7 @@
 using System.Threading.RateLimiting;
 using FluentValidation;
 using Fulda.API.Middleware;
+using Fulda.API.Seed;
 using Fulda.Application.Validators;
 using Fulda.Infrastructure;
 using Fulda.Infrastructure.Data;
@@ -73,7 +74,8 @@ try
 
             policy.WithOrigins(origins)
                 .AllowAnyHeader()
-                .AllowAnyMethod();
+                .AllowAnyMethod()
+                .AllowCredentials();
         });
     });
 
@@ -92,8 +94,18 @@ try
     });
 
     builder.Services.AddScoped<DatabaseSeeder>();
+    builder.Services.AddScoped<AssetBlobSeeder>();
+    builder.Services.AddSignalR();
 
     var app = builder.Build();
+
+    if (args.Contains("--seed-blob-images", StringComparer.OrdinalIgnoreCase))
+    {
+        using var scope = app.Services.CreateScope();
+        var seeder = scope.ServiceProvider.GetRequiredService<AssetBlobSeeder>();
+        await seeder.RunAsync();
+        return;
+    }
 
     app.UseMiddleware<ExceptionHandlingMiddleware>();
     app.UseSerilogRequestLogging();
@@ -101,8 +113,20 @@ try
     app.UseSwagger();
     app.UseSwaggerUI();
 
-    app.UseHttpsRedirection();
     app.UseCors("Frontend");
+
+    var uploadsPath = Path.Combine(app.Environment.ContentRootPath, "uploads");
+    Directory.CreateDirectory(uploadsPath);
+    app.UseStaticFiles(new StaticFileOptions
+    {
+        RequestPath = "/uploads",
+        FileProvider = new PhysicalFileProvider(uploadsPath)
+    });
+
+    if (!app.Environment.IsDevelopment())
+    {
+        app.UseHttpsRedirection();
+    }
     app.UseRateLimiter();
     app.UseAuthentication();
     app.UseAuthorization();
@@ -117,6 +141,7 @@ try
     }
 
     app.MapControllers();
+    app.MapHub<Fulda.API.Hubs.ReservationHub>("/hubs/reservations");
 
     if (Directory.Exists(spaPath) && File.Exists(Path.Combine(spaPath, "index.html")))
     {
@@ -145,7 +170,8 @@ try
             using var scope = app.Services.CreateScope();
             var seeder = scope.ServiceProvider.GetRequiredService<DatabaseSeeder>();
             await seeder.SeedAdminUserAsync();
-            Log.Information("Admin user seed completed.");
+            await seeder.SeedSignaturePlatesCategoryAsync();
+            Log.Information("Database seed completed.");
         }
         catch (Exception ex)
         {

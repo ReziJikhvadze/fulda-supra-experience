@@ -185,6 +185,7 @@ export const authApi = {
 
 export const menuApi = {
   public: () => apiGet<MenuCategoryDto[]>("/api/menu"),
+  signaturePlates: () => apiGet<MenuItemDto[]>("/api/menu/signature-plates"),
   admin: (token: string) => apiGet<MenuCategoryDto[]>("/api/menu/admin", token),
 };
 

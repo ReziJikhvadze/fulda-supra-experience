@@ -6,6 +6,7 @@ public interface IMenuRepository
 {
     Task<IReadOnlyList<MenuCategory>> GetCategoriesAsync(bool activeOnly = false, CancellationToken ct = default);
     Task<MenuCategory?> GetCategoryByIdAsync(int id, CancellationToken ct = default);
+    Task<MenuCategory?> GetCategoryByNameAsync(string name, CancellationToken ct = default);
     Task<int> CreateCategoryAsync(MenuCategory category, CancellationToken ct = default);
     Task<bool> UpdateCategoryAsync(MenuCategory category, CancellationToken ct = default);
     Task<bool> DeleteCategoryAsync(int id, CancellationToken ct = default);

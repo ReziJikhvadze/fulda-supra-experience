@@ -6,6 +6,8 @@ namespace Fulda.Application.Services;
 
 public class MenuService
 {
+    public const string SignaturePlatesCategoryName = "Signature Plates";
+
     private readonly IMenuRepository _repository;
 
     public MenuService(IMenuRepository repository) => _repository = repository;
@@ -13,9 +15,30 @@ public class MenuService
     public async Task<IReadOnlyList<MenuCategoryDto>> GetPublicMenuAsync(CancellationToken ct = default)
     {
         var categories = await _repository.GetCategoriesAsync(activeOnly: true, ct);
+        categories = categories
+            .Where(c => !IsSignatureCategory(c.Name))
+            .ToList();
         var items = await _repository.GetAllItemsAsync(availableOnly: true, ct);
         return BuildTree(categories, items);
     }
+
+    public async Task<IReadOnlyList<MenuItemDto>> GetSignaturePlatesAsync(CancellationToken ct = default)
+    {
+        var category = await _repository.GetCategoryByNameAsync(SignaturePlatesCategoryName, ct);
+        if (category is null || !category.IsActive)
+            return Array.Empty<MenuItemDto>();
+
+        var items = await _repository.GetItemsByCategoryAsync(category.Id, ct);
+        return items
+            .Where(i => i.IsAvailable)
+            .OrderBy(i => i.DisplayOrder)
+            .Select(i => new MenuItemDto(
+                i.Id, i.CategoryId, i.Name, i.Description, i.Price, i.ImageUrl, i.IsAvailable, i.DisplayOrder))
+            .ToList();
+    }
+
+    private static bool IsSignatureCategory(string name) =>
+        string.Equals(name, SignaturePlatesCategoryName, StringComparison.OrdinalIgnoreCase);
 
     public async Task<IReadOnlyList<MenuCategoryDto>> GetAdminMenuAsync(CancellationToken ct = default)
     {

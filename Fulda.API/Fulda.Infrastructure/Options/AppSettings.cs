@@ -15,6 +15,9 @@ public class BlobStorageSettings
     public const string SectionName = "AzureStorage";
 
     public string ConnectionString { get; set; } = string.Empty;
+    /// <summary>Optional — use with AccountKey if the full connection string is awkward in PowerShell.</summary>
+    public string AccountName { get; set; } = string.Empty;
+    public string AccountKey { get; set; } = string.Empty;
     public string ContainerName { get; set; } = "fulda-image";
     public long MaxFileSizeBytes { get; set; } = 5 * 1024 * 1024;
 }

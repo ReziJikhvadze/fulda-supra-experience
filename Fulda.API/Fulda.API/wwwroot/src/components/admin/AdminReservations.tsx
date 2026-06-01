@@ -1,6 +1,8 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 import { reservationsApi, type ReservationDto } from "@/lib/api";
 import { getToken } from "@/lib/auth";
+import { createReservationHubConnection } from "@/lib/reservationHub";
 
 export function AdminReservations() {
   const [rows, setRows] = useState<ReservationDto[]>([]);
@@ -9,10 +11,17 @@ export function AdminReservations() {
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [live, setLive] = useState(false);
+  const rowsRef = useRef(rows);
+  rowsRef.current = rows;
 
   const load = useCallback(async () => {
     const token = getToken();
-    if (!token) return;
+    if (!token) {
+      setLoading(false);
+      setError("Not signed in. Go to /admin/login.");
+      return;
+    }
     setLoading(true);
     setError(null);
     const result = await reservationsApi.list(
@@ -27,6 +36,32 @@ export function AdminReservations() {
   useEffect(() => {
     void load();
   }, [load]);
+
+  useEffect(() => {
+    const token = getToken();
+    if (!token) return;
+
+    const connection = createReservationHubConnection();
+
+    connection.on("ReservationCreated", (reservation: ReservationDto) => {
+      if (rowsRef.current.some((r) => r.id === reservation.id)) return;
+      setRows((prev) => [reservation, ...prev]);
+      toast.success("New reservation", {
+        description: `${reservation.customerName} · ${reservation.reservationDate} · ${reservation.guestCount} guests`,
+        duration: 8000,
+      });
+    });
+
+    connection
+      .start()
+      .then(() => setLive(true))
+      .catch(() => setLive(false));
+
+    return () => {
+      void connection.stop();
+      setLive(false);
+    };
+  }, []);
 
   const updateStatus = async (id: number, newStatus: string) => {
     const token = getToken();
@@ -45,7 +80,16 @@ export function AdminReservations() {
 
   return (
     <div>
-      <h1 className="font-serif italic text-3xl text-wine mb-6">Reservations</h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="font-serif italic text-3xl text-wine">Reservations</h1>
+        <span
+          className={`text-[10px] uppercase tracking-wider px-2 py-1 border ${
+            live ? "border-green-600 text-green-700" : "border-walnut/30 text-walnut/50"
+          }`}
+        >
+          {live ? "Live updates on" : "Live updates off"}
+        </span>
+      </div>
 
       <div className="flex flex-wrap gap-3 mb-6">
         <input
@@ -61,7 +105,7 @@ export function AdminReservations() {
           <option value="Confirmed">Confirmed</option>
           <option value="Cancelled">Cancelled</option>
         </select>
-        <button onClick={() => void load()} className="px-4 py-2 bg-wine text-cream text-xs uppercase tracking-wider">
+        <button type="button" onClick={() => void load()} className="px-4 py-2 bg-wine text-cream text-xs uppercase tracking-wider">
           Refresh
         </button>
       </div>
@@ -103,16 +147,16 @@ export function AdminReservations() {
                 </td>
                 <td className="p-3 space-x-2">
                   {r.status !== "Confirmed" && (
-                    <button onClick={() => void updateStatus(r.id, "Confirmed")} className="text-xs text-wine hover:underline">
+                    <button type="button" onClick={() => void updateStatus(r.id, "Confirmed")} className="text-xs text-wine hover:underline">
                       Confirm
                     </button>
                   )}
                   {r.status !== "Cancelled" && (
-                    <button onClick={() => void updateStatus(r.id, "Cancelled")} className="text-xs text-walnut/70 hover:underline">
+                    <button type="button" onClick={() => void updateStatus(r.id, "Cancelled")} className="text-xs text-walnut/70 hover:underline">
                       Cancel
                     </button>
                   )}
-                  <button onClick={() => void remove(r.id)} className="text-xs text-wine hover:underline">
+                  <button type="button" onClick={() => void remove(r.id)} className="text-xs text-wine hover:underline">
                     Delete
                   </button>
                 </td>

@@ -33,6 +33,9 @@ dist/
 appsettings.*.local.json
 secrets.json
 
+# Local image uploads (when Azure Blob is not configured)
+Fulda.API/Fulda.API/uploads/
+
 # IDE artifacts
 *.rsuser
 .idea/

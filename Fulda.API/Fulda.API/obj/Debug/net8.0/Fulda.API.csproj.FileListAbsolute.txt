@@ -119,4 +119,9 @@ C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.API\obj\De
 C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.API\obj\Debug\net8.0\Fulda.API.pdb
 C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.API\obj\Debug\net8.0\Fulda.API.genruntimeconfig.cache
 C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.API\obj\Debug\net8.0\ref\Fulda.API.dll
-C:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.API\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+c:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.API\bin\Debug\net8.0\appsettings.Production.local.json
+c:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.API\bin\Debug\net8.0\Azure.Identity.dll
+c:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.API\bin\Debug\net8.0\Microsoft.Data.SqlClient.Extensions.Azure.dll
+c:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.API\bin\Debug\net8.0\Microsoft.Identity.Client.dll
+c:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.API\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+c:\Users\Relloran\source\repos\fulda-supra-experience\Fulda.API\Fulda.API\bin\Debug\net8.0\Seed\image-asset-map.json

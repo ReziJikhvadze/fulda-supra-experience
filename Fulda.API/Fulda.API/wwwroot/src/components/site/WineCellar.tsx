@@ -1,11 +1,25 @@
 import wineImg from "@/assets/wine-cellar.jpg";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { winesApi, type WineCategoryDto } from "@/lib/api";
 import { Ornament } from "./Ornament";
-
-const wineKeys = ["saperavi", "rkatsiteli", "mukuzani", "kindzmarauli"] as const;
 
 export function WineCellar() {
   const { t } = useTranslation();
+  const [categories, setCategories] = useState<WineCategoryDto[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    void (async () => {
+      setLoading(true);
+      const result = await winesApi.public();
+      if (result.success && result.data) setCategories(result.data);
+      setLoading(false);
+    })();
+  }, []);
+
+  const wines = categories.flatMap((c) => c.wines.filter((w) => w.isAvailable));
+
   return (
     <section id="wine" className="relative py-32 md:py-40 bg-wine text-cream overflow-hidden">
       <img
@@ -30,26 +44,35 @@ export function WineCellar() {
           </p>
         </div>
 
-        <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 gap-px bg-cream/10">
-          {wineKeys.map((k) => (
-            <div key={k} className="bg-wine p-8 hover:bg-walnut/40 transition-colors">
-              <div className="flex items-baseline justify-between gap-4">
-                <h3 className="font-serif text-2xl">{t(`wine.items.${k}.name`)}</h3>
-                <span className="text-[10px] uppercase tracking-[0.25em] text-gold">
-                  {t(`wine.items.${k}.region`)}
-                </span>
+        {loading ? (
+          <p className="mt-20 text-center text-cream/70">{t("wine.loading", { defaultValue: "Loading wines…" })}</p>
+        ) : wines.length === 0 ? (
+          <p className="mt-20 text-center text-cream/70">{t("wine.empty", { defaultValue: "Wine list coming soon." })}</p>
+        ) : (
+          <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 gap-px bg-cream/10">
+            {wines.map((w) => (
+              <div key={w.id} className="bg-wine p-8 hover:bg-walnut/40 transition-colors">
+                <div className="flex items-baseline justify-between gap-4">
+                  <h3 className="font-serif text-2xl">{w.name}</h3>
+                  <span className="text-gold tabular-nums">€{w.price.toFixed(2)}</span>
+                </div>
+                {(w.country || w.year) && (
+                  <span className="mt-1 block text-[10px] uppercase tracking-[0.25em] text-gold/90">
+                    {[w.country, w.year].filter(Boolean).join(" · ")}
+                  </span>
+                )}
+                {w.description && (
+                  <p className="mt-3 text-cream/70 font-light text-sm leading-relaxed">{w.description}</p>
+                )}
               </div>
-              <p className="mt-3 text-cream/70 font-light text-sm leading-relaxed">
-                {t(`wine.items.${k}.note`)}
-              </p>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         <div className="mt-16 text-center">
           <a
-            href="#reserve"
-            className="inline-block px-12 py-4 border border-gold text-gold text-[11px] uppercase tracking-[0.25em] hover:bg-gold hover:text-wine transition-colors"
+            href="#reservation"
+            className="inline-block border border-gold text-gold px-10 py-3 text-[11px] uppercase tracking-[0.25em] hover:bg-gold hover:text-wine transition-colors"
           >
             {t("wine.cta")}
           </a>

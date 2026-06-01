@@ -49,9 +49,16 @@ public class ImagesController : ControllerBase
 
         await using var stream = file.OpenReadStream();
         var url = await _blobStorage.UploadAsync(stream, file.FileName, file.ContentType, ct);
+        if (url.StartsWith('/'))
+            url = $"{Request.Scheme}://{Request.Host}{url}";
+
+        var storageHint = string.IsNullOrWhiteSpace(_settings.ConnectionString)
+            ? "Saved on this API server (uploads folder). Set AzureStorage__ConnectionString for Azure Blob."
+            : $"Saved to Azure Blob container '{_settings.ContainerName}'.";
+
         return Ok(ApiResponse<ImageUploadResponse>.Ok(
             new ImageUploadResponse(url, Path.GetFileName(file.FileName)),
-            "Image uploaded."));
+            $"Image uploaded. {storageHint}"));
     }
 
     [HttpDelete]

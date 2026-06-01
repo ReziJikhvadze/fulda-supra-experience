@@ -1,0 +1,92 @@
+[
+  {
+    "asset": "dish-khachapuri.jpg",
+    "blobPath": "seed/menu/dish-khachapuri.jpg",
+    "menuItemNames": ["Adjaruli Khachapuri"]
+  },
+  {
+    "asset": "dish-khinkali.jpg",
+    "blobPath": "seed/menu/dish-khinkali.jpg",
+    "menuItemNames": ["Beef Khinkali"]
+  },
+  {
+    "asset": "dish-mtsvadi.jpg",
+    "blobPath": "seed/menu/dish-mtsvadi.jpg",
+    "menuItemNames": ["Mtsvadi"]
+  },
+  {
+    "asset": "dish-lobio.jpg",
+    "blobPath": "seed/menu/dish-lobio.jpg",
+    "menuItemNames": ["Lobio", "Lobio Starter"]
+  },
+  {
+    "asset": "dish-pkhali.jpg",
+    "blobPath": "seed/menu/dish-pkhali.jpg",
+    "menuItemNames": ["Pkhali"]
+  },
+  {
+    "asset": "dish-badrijani.jpg",
+    "blobPath": "seed/menu/dish-badrijani.jpg",
+    "menuItemNames": ["Badrijani"]
+  },
+  {
+    "asset": "dish-salad.jpg",
+    "blobPath": "seed/menu/dish-salad.jpg",
+    "menuItemNames": ["Georgian Salad"]
+  },
+  {
+    "asset": "dish-churchkhela.jpg",
+    "blobPath": "seed/menu/dish-churchkhela.jpg",
+    "menuItemNames": ["Churchkhela"]
+  },
+  {
+    "asset": "hero-table.jpg",
+    "blobPath": "seed/site/hero-table.jpg",
+    "menuItemNames": []
+  },
+  {
+    "asset": "intro-khinkali.jpg",
+    "blobPath": "seed/site/intro-khinkali.jpg",
+    "menuItemNames": []
+  },
+  {
+    "asset": "story-interior.jpg",
+    "blobPath": "seed/site/story-interior.jpg",
+    "menuItemNames": []
+  },
+  {
+    "asset": "wine-cellar.jpg",
+    "blobPath": "seed/site/wine-cellar.jpg",
+    "menuItemNames": []
+  },
+  {
+    "asset": "gallery-1.jpg",
+    "blobPath": "seed/site/gallery-1.jpg",
+    "menuItemNames": []
+  },
+  {
+    "asset": "gallery-2.jpg",
+    "blobPath": "seed/site/gallery-2.jpg",
+    "menuItemNames": []
+  },
+  {
+    "asset": "gallery-3.jpg",
+    "blobPath": "seed/site/gallery-3.jpg",
+    "menuItemNames": []
+  },
+  {
+    "asset": "gallery-4.jpg",
+    "blobPath": "seed/site/gallery-4.jpg",
+    "menuItemNames": []
+  },
+  {
+    "asset": "gallery-5.jpg",
+    "blobPath": "seed/site/gallery-5.jpg",
+    "menuItemNames": []
+  },
+  {
+    "asset": "gallery-6.jpg",
+    "blobPath": "seed/site/gallery-6.jpg",
+    "menuItemNames": []
+  }
+]

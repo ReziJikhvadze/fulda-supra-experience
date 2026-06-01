@@ -22,6 +22,14 @@ public class MenuController : ControllerBase
         return Ok(ApiResponse<IReadOnlyList<MenuCategoryDto>>.Ok(data));
     }
 
+    [HttpGet("signature-plates")]
+    [AllowAnonymous]
+    public async Task<ActionResult<ApiResponse<IReadOnlyList<MenuItemDto>>>> GetSignaturePlates(CancellationToken ct)
+    {
+        var data = await _service.GetSignaturePlatesAsync(ct);
+        return Ok(ApiResponse<IReadOnlyList<MenuItemDto>>.Ok(data));
+    }
+
     [HttpGet("admin")]
     [Authorize(Roles = "Admin")]
     public async Task<ActionResult<ApiResponse<IReadOnlyList<MenuCategoryDto>>>> GetAdmin(CancellationToken ct)

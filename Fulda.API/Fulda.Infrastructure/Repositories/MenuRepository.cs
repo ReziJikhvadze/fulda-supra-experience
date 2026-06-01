@@ -30,6 +30,13 @@ public class MenuRepository : IMenuRepository
         return await connection.QuerySingleOrDefaultAsync<MenuCategory>(sql, new { Id = id });
     }
 
+    public async Task<MenuCategory?> GetCategoryByNameAsync(string name, CancellationToken ct = default)
+    {
+        const string sql = "SELECT Id, Name, DisplayOrder, IsActive FROM MenuCategories WHERE Name = @Name";
+        using var connection = _connectionFactory.CreateConnection();
+        return await connection.QuerySingleOrDefaultAsync<MenuCategory>(sql, new { Name = name });
+    }
+
     public async Task<int> CreateCategoryAsync(MenuCategory category, CancellationToken ct = default)
     {
         const string sql = """

@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
-import { apiDelete, apiPost, apiPut, apiUpload, winesApi, type WineCategoryDto } from "@/lib/api";
+import { apiDelete, apiPost, apiPut, apiUpload, winesApi, type WineCategoryDto, type WineDto } from "@/lib/api";
+import { adminMutate } from "@/lib/adminMutate";
 import { getToken } from "@/lib/auth";
+import { Switch } from "@/components/ui/switch";
 
 export function AdminWines() {
   const [categories, setCategories] = useState<WineCategoryDto[]>([]);
@@ -19,48 +21,39 @@ export function AdminWines() {
     void load();
   }, [load]);
 
+  const saveWine = async (wine: WineDto, draft: Partial<WineDto>) => {
+    const token = getToken();
+    if (!token) return;
+    const ok = await adminMutate("Wine saved", () =>
+      apiPut(`/api/wines/${wine.id}`, {
+        name: draft.name ?? wine.name,
+        description: draft.description ?? wine.description ?? "",
+        price: draft.price ?? wine.price,
+        country: draft.country ?? wine.country ?? "",
+        year: draft.year ?? wine.year,
+        imageUrl: draft.imageUrl ?? wine.imageUrl,
+        isAvailable: draft.isAvailable ?? wine.isAvailable,
+      }, token),
+    );
+    if (ok) void load();
+  };
+
   const addWine = async (categoryId: number) => {
     const token = getToken();
     if (!token) return;
     const name = prompt("Wine name?");
     if (!name) return;
-    const priceStr = prompt("Price (EUR)?", "9.50");
-    if (!priceStr) return;
-    await apiPost(
-      "/api/wines",
-      {
-        categoryId,
-        name,
-        description: "",
-        price: parseFloat(priceStr),
-        country: "Georgia",
-        isAvailable: true,
-      },
-      token,
+    const ok = await adminMutate("Wine added", () =>
+      apiPost(
+        "/api/wines",
+        { categoryId, name, description: "", price: 9.5, country: "Georgia", isAvailable: true },
+        token,
+      ),
     );
-    void load();
+    if (ok) void load();
   };
 
-  const toggleWine = async (wine: WineCategoryDto["wines"][number]) => {
-    const token = getToken();
-    if (!token) return;
-    await apiPut(
-      `/api/wines/${wine.id}`,
-      {
-        name: wine.name,
-        description: wine.description,
-        price: wine.price,
-        country: wine.country,
-        year: wine.year,
-        imageUrl: wine.imageUrl,
-        isAvailable: !wine.isAvailable,
-      },
-      token,
-    );
-    void load();
-  };
-
-  const uploadImage = async (wine: WineCategoryDto["wines"][number]) => {
+  const uploadImage = async (wine: WineDto) => {
     const token = getToken();
     if (!token) return;
     const input = document.createElement("input");
@@ -71,20 +64,7 @@ export function AdminWines() {
       if (!file) return;
       const uploaded = await apiUpload("/api/images/upload", file, token);
       if (!uploaded.success || !uploaded.data) return;
-      await apiPut(
-        `/api/wines/${wine.id}`,
-        {
-          name: wine.name,
-          description: wine.description,
-          price: wine.price,
-          country: wine.country,
-          year: wine.year,
-          imageUrl: uploaded.data.url,
-          isAvailable: wine.isAvailable,
-        },
-        token,
-      );
-      void load();
+      await saveWine(wine, { imageUrl: uploaded.data.url });
     };
     input.click();
   };
@@ -93,8 +73,8 @@ export function AdminWines() {
     if (!confirm("Delete this wine?")) return;
     const token = getToken();
     if (!token) return;
-    await apiDelete(`/api/wines/${id}`, token);
-    void load();
+    const ok = await adminMutate("Wine deleted", () => apiDelete(`/api/wines/${id}`, token));
+    if (ok) void load();
   };
 
   if (loading) return <p>Loading wines…</p>;
@@ -105,38 +85,106 @@ export function AdminWines() {
       <div className="space-y-8">
         {categories.map((cat) => (
           <section key={cat.id} className="border border-walnut/10 p-6">
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex justify-between mb-4">
               <h2 className="font-serif text-xl">{cat.name}</h2>
-              <button onClick={() => void addWine(cat.id)} className="text-xs uppercase tracking-wider text-wine hover:underline">
+              <button type="button" onClick={() => void addWine(cat.id)} className="text-xs uppercase text-wine">
                 Add wine
               </button>
             </div>
-            <ul className="space-y-3">
+            <ul className="space-y-6">
               {cat.wines.map((wine) => (
-                <li key={wine.id} className="flex flex-wrap items-center justify-between gap-2 border-b border-walnut/10 pb-3">
-                  <div>
-                    <span className="font-medium">{wine.name}</span>
-                    <span className="ml-3 text-gold">€{wine.price.toFixed(2)}</span>
-                    {wine.country && <span className="ml-2 text-xs text-walnut/60">{wine.country}</span>}
-                    {!wine.isAvailable && <span className="ml-2 text-xs text-wine">Unavailable</span>}
-                  </div>
-                  <div className="space-x-3 text-xs">
-                    <button onClick={() => void toggleWine(wine)} className="hover:underline">
-                      Toggle availability
-                    </button>
-                    <button onClick={() => void uploadImage(wine)} className="hover:underline">
-                      Upload image
-                    </button>
-                    <button onClick={() => void deleteWine(wine.id)} className="text-wine hover:underline">
-                      Delete
-                    </button>
-                  </div>
-                </li>
+                <WineEditor
+                  key={wine.id}
+                  wine={wine}
+                  onSave={(d) => void saveWine(wine, d)}
+                  onUpload={() => void uploadImage(wine)}
+                  onDelete={() => void deleteWine(wine.id)}
+                />
               ))}
             </ul>
           </section>
         ))}
       </div>
     </div>
+  );
+}
+
+function WineEditor({
+  wine,
+  onSave,
+  onUpload,
+  onDelete,
+}: {
+  wine: WineDto;
+  onSave: (draft: Partial<WineDto>) => void;
+  onUpload: () => void;
+  onDelete: () => void;
+}) {
+  const [name, setName] = useState(wine.name);
+  const [description, setDescription] = useState(wine.description ?? "");
+  const [price, setPrice] = useState(String(wine.price));
+  const [country, setCountry] = useState(wine.country ?? "");
+  const [year, setYear] = useState(wine.year ? String(wine.year) : "");
+  const [available, setAvailable] = useState(wine.isAvailable);
+
+  useEffect(() => {
+    setName(wine.name);
+    setDescription(wine.description ?? "");
+    setPrice(String(wine.price));
+    setCountry(wine.country ?? "");
+    setYear(wine.year ? String(wine.year) : "");
+    setAvailable(wine.isAvailable);
+  }, [wine]);
+
+  return (
+    <li className="border border-walnut/10 p-4 space-y-3">
+      <div className="grid gap-3 md:grid-cols-2">
+        <label className="block text-xs uppercase tracking-wider text-walnut/60">
+          Name
+          <input value={name} onChange={(e) => setName(e.target.value)} className="mt-1 w-full border px-2 py-1.5 text-sm bg-white" />
+        </label>
+        <label className="block text-xs uppercase tracking-wider text-walnut/60">
+          Price (€)
+          <input type="number" step="0.01" value={price} onChange={(e) => setPrice(e.target.value)} className="mt-1 w-full border px-2 py-1.5 text-sm bg-white" />
+        </label>
+        <label className="block text-xs uppercase tracking-wider text-walnut/60">
+          Country
+          <input value={country} onChange={(e) => setCountry(e.target.value)} className="mt-1 w-full border px-2 py-1.5 text-sm bg-white" />
+        </label>
+        <label className="block text-xs uppercase tracking-wider text-walnut/60">
+          Year
+          <input type="number" value={year} onChange={(e) => setYear(e.target.value)} className="mt-1 w-full border px-2 py-1.5 text-sm bg-white" />
+        </label>
+      </div>
+      <textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={2} className="w-full border px-2 py-1.5 text-sm bg-white" />
+      <label className="flex items-center gap-2 text-sm">
+        <Switch checked={available} onCheckedChange={setAvailable} />
+        Available
+      </label>
+      <div className="flex flex-wrap gap-2">
+        <button
+          type="button"
+          onClick={() =>
+            onSave({
+              name,
+              description,
+              price: parseFloat(price) || 0,
+              country,
+              year: year ? parseInt(year, 10) : undefined,
+              isAvailable: available,
+            })
+          }
+          className="px-3 py-1.5 bg-wine text-cream text-xs uppercase"
+        >
+          Save
+        </button>
+        <button type="button" onClick={onUpload} className="px-3 py-1.5 border text-xs uppercase">
+          Upload image
+        </button>
+        <button type="button" onClick={onDelete} className="px-3 py-1.5 text-xs uppercase text-wine">
+          Delete
+        </button>
+      </div>
+    </li>
   );
 }

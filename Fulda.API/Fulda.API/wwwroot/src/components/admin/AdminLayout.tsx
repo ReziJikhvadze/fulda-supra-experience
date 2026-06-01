@@ -1,6 +1,6 @@
 import { Link, Outlet, useNavigate, useRouterState } from "@tanstack/react-router";
+import { Toaster } from "@/components/ui/sonner";
 import { clearAuth, getAuth } from "@/lib/auth";
-import { useEffect } from "react";
 
 const nav = [
   { to: "/admin", label: "Reservations", exact: true },
@@ -13,12 +13,15 @@ export function AdminLayout() {
   const navigate = useNavigate();
   const auth = getAuth();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const isLogin = pathname === "/admin/login";
 
-  useEffect(() => {
-    if (!auth) navigate({ to: "/admin/login" });
-  }, [auth, navigate]);
+  if (isLogin) {
+    return <Outlet />;
+  }
 
-  if (!auth) return null;
+  if (!auth) {
+    return null;
+  }
 
   const logout = () => {
     clearAuth();
@@ -26,7 +29,9 @@ export function AdminLayout() {
   };
 
   return (
-    <div className="min-h-screen bg-cream text-walnut flex">
+    <>
+      <Toaster position="top-right" richColors />
+      <div className="min-h-screen bg-cream text-walnut flex">
       <aside className="w-56 shrink-0 bg-walnut text-cream flex flex-col">
         <div className="p-6 border-b border-cream/10">
           <p className="font-serif italic text-xl">Am Stockhaus</p>
@@ -34,7 +39,9 @@ export function AdminLayout() {
         </div>
         <nav className="flex-1 p-4 space-y-1">
           {nav.map((item) => {
-            const active = item.exact ? pathname === item.to : pathname.startsWith(item.to);
+            const active = item.exact
+              ? pathname === item.to || pathname === "/admin/"
+              : pathname.startsWith(item.to);
             return (
               <Link
                 key={item.to}
@@ -59,5 +66,6 @@ export function AdminLayout() {
         <Outlet />
       </main>
     </div>
+    </>
   );
 }

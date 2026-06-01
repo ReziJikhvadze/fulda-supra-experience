@@ -4,6 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>fulda-api-local</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,6 +24,7 @@
   <ItemGroup>
     <Content Remove="wwwroot\**\*" />
     <Content Include="spa\**" CopyToPublishDirectory="PreserveNewest" />
+    <None Update="Seed\image-asset-map.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

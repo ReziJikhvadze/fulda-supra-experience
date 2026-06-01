@@ -7,9 +7,9 @@ $zip = Join-Path $root "publish\flaudaa-web.zip"
 $apiUrl = "https://flaudaa-dwf9bhg5e8g6bebv.canadacentral-01.azurewebsites.net"
 
 Push-Location $wwwroot
-npm ci
+npm.cmd ci
 $env:VITE_API_URL = $apiUrl
-npm run build:azure
+npm.cmd run build:azure
 Pop-Location
 
 if (Test-Path $out) { Remove-Item -Recurse -Force $out }

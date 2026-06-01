@@ -1,9 +1,11 @@
 using FluentValidation;
+using Fulda.API.Hubs;
 using Fulda.Application.Common;
 using Fulda.Application.DTOs.Reservations;
 using Fulda.Application.Services;
 using Fulda.Application.Validators;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Fulda.API.Controllers;
 
@@ -14,15 +16,18 @@ public class ReservationsController : ControllerBase
     private readonly ReservationService _service;
     private readonly CreateReservationValidator _createValidator;
     private readonly UpdateReservationStatusValidator _statusValidator;
+    private readonly IHubContext<ReservationHub> _hub;
 
     public ReservationsController(
         ReservationService service,
         CreateReservationValidator createValidator,
-        UpdateReservationStatusValidator statusValidator)
+        UpdateReservationStatusValidator statusValidator,
+        IHubContext<ReservationHub> hub)
     {
         _service = service;
         _createValidator = createValidator;
         _statusValidator = statusValidator;
+        _hub = hub;
     }
 
     [HttpGet]
@@ -60,6 +65,10 @@ public class ReservationsController : ControllerBase
                 validation.Errors.Select(e => e.ErrorMessage)));
 
         var created = await _service.CreateAsync(request, ct);
+
+        await _hub.Clients.Group(ReservationHub.GroupAdmins)
+            .SendAsync(ReservationHub.EventReservationCreated, created, ct);
+
         return CreatedAtAction(nameof(GetById), new { id = created.Id },
             ApiResponse<ReservationDto>.Ok(created, "Your reservation request has been received."));
     }
