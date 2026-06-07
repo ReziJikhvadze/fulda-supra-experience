@@ -1,4 +1,4 @@
-import logo from "@/assets/logo.svg";
+import logo from "@/assets/logo.png";
 
 type LogoProps = {
   className?: string;
@@ -12,15 +12,12 @@ const heights: Record<NonNullable<LogoProps["variant"]>, string> = {
   admin: "h-[4.5rem] w-auto",
 };
 
-/** JPEG-in-SVG has a black matte; screen blend hides black on dark UI. */
-const blendOnDark = "mix-blend-screen";
-
 export function Logo({ className = "", variant = "nav" }: LogoProps) {
   return (
     <img
       src={logo}
       alt="Tabla — Georgische Küche & Wein"
-      className={`object-contain object-left ${blendOnDark} ${heights[variant]} ${className}`}
+      className={`object-contain object-left ${heights[variant]} ${className}`}
       width={480}
       height={160}
     />

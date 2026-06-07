@@ -32,13 +32,7 @@ export function SiteNav() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 md:px-10 text-cream">
-        <a
-          href="#top"
-          className={`block shrink-0 rounded-md px-2 py-1 ${
-            scrolled ? "" : "bg-walnut/85 backdrop-blur-sm"
-          }`}
-          aria-label="Home"
-        >
+        <a href="#top" className="block shrink-0" aria-label="Home">
           <Logo variant="nav" />
         </a>
         <div className="hidden md:flex gap-8 text-[11px] uppercase tracking-[0.22em] font-medium">
