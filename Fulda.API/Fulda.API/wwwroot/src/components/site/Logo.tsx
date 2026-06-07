@@ -1,4 +1,5 @@
-import logo from "@/assets/logo.png";
+/** Stable URL — same path on every deploy (no Vite hash). File: public/logo.png */
+const LOGO_SRC = "/logo.png";
 
 type LogoProps = {
   className?: string;
@@ -15,7 +16,7 @@ const heights: Record<NonNullable<LogoProps["variant"]>, string> = {
 export function Logo({ className = "", variant = "nav" }: LogoProps) {
   return (
     <img
-      src={logo}
+      src={LOGO_SRC}
       alt="Tabla — Georgische Küche & Wein"
       className={`object-contain object-left ${heights[variant]} ${className}`}
       width={480}

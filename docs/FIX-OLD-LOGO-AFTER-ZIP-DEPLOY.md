@@ -8,16 +8,18 @@ Azure keeps serving the old bundle that references `logo-BMtTO6Rf.svg`.
 ### Step 1 — Wipe old files on Azure
 
 1. Portal → **flaudaa-web** → **Advanced Tools** → **Go** (Kudu)
-2. Top menu → **Debug console** → **CMD**
-3. Go to: `cd site\wwwroot`
-4. Delete everything:
+2. Top menu → **Debug console** → **Bash** (flaudaa-web is Linux — do **not** use CMD)
+3. Wipe `wwwroot`:
 
-```cmd
-del /s /q *
-for /d %i in (*) do rmdir /s /q "%i"
+```bash
+cd /home/site/wwwroot
+rm -rf /home/site/wwwroot/*
+ls -la
 ```
 
-(Or in Kudu **file manager**: open `site/wwwroot`, select all, delete.)
+(`ls` should show an empty folder.)
+
+Or in Kudu **file manager**: open `site/wwwroot`, select all, delete.
 
 ### Step 2 — Rebuild zip on your PC
 

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Fulda.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9eb7de066979753e545702cd9b1dfe0f9d1a2a50")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+744fe0c75d92d78c53bf044a1c8a12f90eba53f1")]
 [assembly: System.Reflection.AssemblyProductAttribute("Fulda.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Fulda.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
