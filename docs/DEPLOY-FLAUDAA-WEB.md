@@ -66,9 +66,13 @@ Upload `publish\flaudaa-web.zip` → **flaudaa-web** → **Deployment Center** �
 
 ## API CORS
 
-On **flaudaa**:
+On **flaudaa** (API) → **Environment variables**:
 
-`Cors__AllowedOrigins__0` = `https://flaudaa-web-c3c5ash8agbff0dk.canadacentral-01.azurewebsites.net`
+| Name | Value |
+|------|--------|
+| `Cors__AllowedOrigins__0` | `https://tabla-restaurant.de` |
+| `Cors__AllowedOrigins__1` | `https://www.tabla-restaurant.de` |
+| `Cors__AllowedOrigins__2` | `https://flaudaa-web-c3c5ash8agbff0dk.canadacentral-01.azurewebsites.net` |
 
 Restart **flaudaa** after changing.
 
