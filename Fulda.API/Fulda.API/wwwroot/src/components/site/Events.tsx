@@ -16,9 +16,6 @@ export function Events() {
           <h2 className="mt-3 text-5xl md:text-6xl font-serif italic text-wine">
             {t("events.title")}
           </h2>
-          <p className="mt-6 max-w-2xl mx-auto text-walnut/70 font-light text-lg leading-relaxed">
-            {t("events.subtitle")}
-          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-walnut/10">

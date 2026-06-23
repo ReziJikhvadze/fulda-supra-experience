@@ -32,8 +32,7 @@ public class MenuService
         return items
             .Where(i => i.IsAvailable)
             .OrderBy(i => i.DisplayOrder)
-            .Select(i => new MenuItemDto(
-                i.Id, i.CategoryId, i.Name, i.Description, i.Price, i.ImageUrl, i.IsAvailable, i.DisplayOrder))
+            .Select(MapItem)
             .ToList();
     }
 
@@ -60,6 +59,8 @@ public class MenuService
         var entity = new MenuCategory
         {
             Name = request.Name.Trim(),
+            NameDe = Clean(request.NameDe),
+            NameKa = Clean(request.NameKa),
             DisplayOrder = request.DisplayOrder,
             IsActive = request.IsActive
         };
@@ -72,6 +73,8 @@ public class MenuService
         if (existing is null) return false;
 
         existing.Name = request.Name.Trim();
+        existing.NameDe = Clean(request.NameDe);
+        existing.NameKa = Clean(request.NameKa);
         existing.DisplayOrder = request.DisplayOrder;
         existing.IsActive = request.IsActive;
         return await _repository.UpdateCategoryAsync(existing, ct);
@@ -89,7 +92,11 @@ public class MenuService
         {
             CategoryId = request.CategoryId,
             Name = request.Name.Trim(),
-            Description = request.Description?.Trim(),
+            NameDe = Clean(request.NameDe),
+            NameKa = Clean(request.NameKa),
+            Description = Clean(request.Description),
+            DescriptionDe = Clean(request.DescriptionDe),
+            DescriptionKa = Clean(request.DescriptionKa),
             Price = request.Price,
             ImageUrl = request.ImageUrl,
             IsAvailable = request.IsAvailable,
@@ -104,7 +111,11 @@ public class MenuService
         if (existing is null) return false;
 
         existing.Name = request.Name.Trim();
-        existing.Description = request.Description?.Trim();
+        existing.NameDe = Clean(request.NameDe);
+        existing.NameKa = Clean(request.NameKa);
+        existing.Description = Clean(request.Description);
+        existing.DescriptionDe = Clean(request.DescriptionDe);
+        existing.DescriptionKa = Clean(request.DescriptionKa);
         existing.Price = request.Price;
         existing.ImageUrl = request.ImageUrl;
         existing.IsAvailable = request.IsAvailable;
@@ -129,8 +140,29 @@ public class MenuService
     private static MenuCategoryDto MapCategory(MenuCategory c, IEnumerable<MenuItem> items) => new(
         c.Id,
         c.Name,
+        c.NameDe,
+        c.NameKa,
         c.DisplayOrder,
         c.IsActive,
-        items.Select(i => new MenuItemDto(
-            i.Id, i.CategoryId, i.Name, i.Description, i.Price, i.ImageUrl, i.IsAvailable, i.DisplayOrder)).ToList());
+        items.Select(MapItem).ToList());
+
+    private static MenuItemDto MapItem(MenuItem i) => new(
+        i.Id,
+        i.CategoryId,
+        i.Name,
+        i.NameDe,
+        i.NameKa,
+        i.Description,
+        i.DescriptionDe,
+        i.DescriptionKa,
+        i.Price,
+        i.ImageUrl,
+        i.IsAvailable,
+        i.DisplayOrder);
+
+    private static string? Clean(string? value)
+    {
+        var trimmed = value?.Trim();
+        return string.IsNullOrEmpty(trimmed) ? null : trimmed;
+    }
 }

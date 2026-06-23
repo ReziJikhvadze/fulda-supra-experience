@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Ornament } from "./Ornament";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { Logo } from "./Logo";
-import { BRAND_NAME } from "@/lib/brand";
+import { BRAND_EMAIL, BRAND_NAME, BRAND_PHONE, BRAND_PHONE_TEL } from "@/lib/brand";
 
 export function Footer() {
   const { t } = useTranslation();
@@ -29,13 +29,13 @@ export function Footer() {
           </div>
           <div>
             <h4 className="text-[10px] uppercase tracking-[0.25em] text-gold mb-4">{t("footer.hours")}</h4>
-            <p className="text-cream/70 font-light leading-relaxed">{t("contact.hoursLine")}</p>
+            <p className="text-cream/70 font-light leading-relaxed whitespace-pre-line">{t("contact.hoursLine")}</p>
           </div>
           <div>
             <h4 className="text-[10px] uppercase tracking-[0.25em] text-gold mb-4">{t("footer.contact")}</h4>
             <p className="text-cream/70 font-light leading-relaxed">
-              +49 (0) 661 123 4567<br />
-              hello@am-stockhaus.de
+              <a href={`tel:${BRAND_PHONE_TEL}`} className="hover:text-gold transition-colors">{BRAND_PHONE}</a><br />
+              <a href={`mailto:${BRAND_EMAIL}`} className="hover:text-gold transition-colors">{BRAND_EMAIL}</a>
             </p>
             <div className="mt-4 flex gap-4 text-cream/60">
               <a href="#" aria-label="Instagram" className="hover:text-gold">Instagram</a>

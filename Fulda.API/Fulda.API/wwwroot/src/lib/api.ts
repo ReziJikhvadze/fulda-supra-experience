@@ -117,6 +117,8 @@ export type LoginResponse = {
 export type MenuCategoryDto = {
   id: number;
   name: string;
+  nameDe?: string | null;
+  nameKa?: string | null;
   displayOrder: number;
   isActive: boolean;
   items: MenuItemDto[];
@@ -126,7 +128,11 @@ export type MenuItemDto = {
   id: number;
   categoryId: number;
   name: string;
+  nameDe?: string | null;
+  nameKa?: string | null;
   description?: string;
+  descriptionDe?: string | null;
+  descriptionKa?: string | null;
   price: number;
   imageUrl?: string;
   isAvailable: boolean;

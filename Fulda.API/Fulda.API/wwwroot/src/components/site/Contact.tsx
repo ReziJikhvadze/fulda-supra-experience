@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Ornament } from "./Ornament";
 
-import { MAP_ADDRESS_QUERY } from "@/lib/brand";
+import { BRAND_EMAIL, BRAND_PHONE, BRAND_PHONE_TEL, MAP_ADDRESS_QUERY } from "@/lib/brand";
 
 const ADDRESS_QUERY = encodeURIComponent(MAP_ADDRESS_QUERY);
 
@@ -54,15 +54,18 @@ export function Contact() {
               <h3 className="text-[10px] uppercase tracking-[0.3em] text-gold font-bold mb-3">
                 {t("contact.hours")}
               </h3>
-              <p className="text-lg font-light">{t("contact.hoursLine")}</p>
-              <p className="text-sm font-light italic opacity-60">{t("contact.closed")}</p>
+              <p className="text-lg font-light whitespace-pre-line">{t("contact.hoursLine")}</p>
             </div>
             <div>
               <h3 className="text-[10px] uppercase tracking-[0.3em] text-gold font-bold mb-3">
                 {t("contact.contact")}
               </h3>
-              <p className="text-lg font-light">+49 (0) 661 123 4567</p>
-              <p className="text-lg font-light">hello@am-stockhaus.de</p>
+              <a href={`tel:${BRAND_PHONE_TEL}`} className="text-lg font-light block hover:text-gold transition-colors">
+                {BRAND_PHONE}
+              </a>
+              <a href={`mailto:${BRAND_EMAIL}`} className="text-lg font-light block hover:text-gold transition-colors">
+                {BRAND_EMAIL}
+              </a>
             </div>
           </div>
         </div>

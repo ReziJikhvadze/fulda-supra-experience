@@ -68,15 +68,6 @@ export function WineCellar() {
             ))}
           </div>
         )}
-
-        <div className="mt-16 text-center">
-          <a
-            href="#reservation"
-            className="inline-block border border-gold text-gold px-10 py-3 text-[11px] uppercase tracking-[0.25em] hover:bg-gold hover:text-wine transition-colors"
-          >
-            {t("wine.cta")}
-          </a>
-        </div>
       </div>
     </section>
   );

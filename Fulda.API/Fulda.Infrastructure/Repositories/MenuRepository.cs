@@ -14,7 +14,7 @@ public class MenuRepository : IMenuRepository
 
     public async Task<IReadOnlyList<MenuCategory>> GetCategoriesAsync(bool activeOnly = false, CancellationToken ct = default)
     {
-        var sql = "SELECT Id, Name, DisplayOrder, IsActive FROM MenuCategories";
+        var sql = "SELECT Id, Name, NameDe, NameKa, DisplayOrder, IsActive FROM MenuCategories";
         if (activeOnly) sql += " WHERE IsActive = 1";
         sql += " ORDER BY DisplayOrder";
 
@@ -25,14 +25,14 @@ public class MenuRepository : IMenuRepository
 
     public async Task<MenuCategory?> GetCategoryByIdAsync(int id, CancellationToken ct = default)
     {
-        const string sql = "SELECT Id, Name, DisplayOrder, IsActive FROM MenuCategories WHERE Id = @Id";
+        const string sql = "SELECT Id, Name, NameDe, NameKa, DisplayOrder, IsActive FROM MenuCategories WHERE Id = @Id";
         using var connection = _connectionFactory.CreateConnection();
         return await connection.QuerySingleOrDefaultAsync<MenuCategory>(sql, new { Id = id });
     }
 
     public async Task<MenuCategory?> GetCategoryByNameAsync(string name, CancellationToken ct = default)
     {
-        const string sql = "SELECT Id, Name, DisplayOrder, IsActive FROM MenuCategories WHERE Name = @Name";
+        const string sql = "SELECT Id, Name, NameDe, NameKa, DisplayOrder, IsActive FROM MenuCategories WHERE Name = @Name";
         using var connection = _connectionFactory.CreateConnection();
         return await connection.QuerySingleOrDefaultAsync<MenuCategory>(sql, new { Name = name });
     }
@@ -40,8 +40,8 @@ public class MenuRepository : IMenuRepository
     public async Task<int> CreateCategoryAsync(MenuCategory category, CancellationToken ct = default)
     {
         const string sql = """
-            INSERT INTO MenuCategories (Name, DisplayOrder, IsActive)
-            VALUES (@Name, @DisplayOrder, @IsActive);
+            INSERT INTO MenuCategories (Name, NameDe, NameKa, DisplayOrder, IsActive)
+            VALUES (@Name, @NameDe, @NameKa, @DisplayOrder, @IsActive);
             SELECT CAST(SCOPE_IDENTITY() AS INT);
             """;
         using var connection = _connectionFactory.CreateConnection();
@@ -51,7 +51,8 @@ public class MenuRepository : IMenuRepository
     public async Task<bool> UpdateCategoryAsync(MenuCategory category, CancellationToken ct = default)
     {
         const string sql = """
-            UPDATE MenuCategories SET Name = @Name, DisplayOrder = @DisplayOrder, IsActive = @IsActive
+            UPDATE MenuCategories SET Name = @Name, NameDe = @NameDe, NameKa = @NameKa,
+                DisplayOrder = @DisplayOrder, IsActive = @IsActive
             WHERE Id = @Id
             """;
         using var connection = _connectionFactory.CreateConnection();
@@ -75,7 +76,8 @@ public class MenuRepository : IMenuRepository
     public async Task<IReadOnlyList<MenuItem>> GetItemsByCategoryAsync(int categoryId, CancellationToken ct = default)
     {
         const string sql = """
-            SELECT Id, CategoryId, Name, Description, Price, ImageUrl, IsAvailable, DisplayOrder
+            SELECT Id, CategoryId, Name, NameDe, NameKa, Description, DescriptionDe, DescriptionKa,
+                Price, ImageUrl, IsAvailable, DisplayOrder
             FROM MenuItems WHERE CategoryId = @CategoryId ORDER BY DisplayOrder
             """;
         using var connection = _connectionFactory.CreateConnection();
@@ -86,7 +88,8 @@ public class MenuRepository : IMenuRepository
     public async Task<IReadOnlyList<MenuItem>> GetAllItemsAsync(bool availableOnly = false, CancellationToken ct = default)
     {
         var sql = """
-            SELECT Id, CategoryId, Name, Description, Price, ImageUrl, IsAvailable, DisplayOrder
+            SELECT Id, CategoryId, Name, NameDe, NameKa, Description, DescriptionDe, DescriptionKa,
+                Price, ImageUrl, IsAvailable, DisplayOrder
             FROM MenuItems
             """;
         if (availableOnly) sql += " WHERE IsAvailable = 1";
@@ -100,7 +103,8 @@ public class MenuRepository : IMenuRepository
     public async Task<MenuItem?> GetItemByIdAsync(int id, CancellationToken ct = default)
     {
         const string sql = """
-            SELECT Id, CategoryId, Name, Description, Price, ImageUrl, IsAvailable, DisplayOrder
+            SELECT Id, CategoryId, Name, NameDe, NameKa, Description, DescriptionDe, DescriptionKa,
+                Price, ImageUrl, IsAvailable, DisplayOrder
             FROM MenuItems WHERE Id = @Id
             """;
         using var connection = _connectionFactory.CreateConnection();
@@ -110,8 +114,10 @@ public class MenuRepository : IMenuRepository
     public async Task<int> CreateItemAsync(MenuItem item, CancellationToken ct = default)
     {
         const string sql = """
-            INSERT INTO MenuItems (CategoryId, Name, Description, Price, ImageUrl, IsAvailable, DisplayOrder)
-            VALUES (@CategoryId, @Name, @Description, @Price, @ImageUrl, @IsAvailable, @DisplayOrder);
+            INSERT INTO MenuItems (CategoryId, Name, NameDe, NameKa, Description, DescriptionDe, DescriptionKa,
+                Price, ImageUrl, IsAvailable, DisplayOrder)
+            VALUES (@CategoryId, @Name, @NameDe, @NameKa, @Description, @DescriptionDe, @DescriptionKa,
+                @Price, @ImageUrl, @IsAvailable, @DisplayOrder);
             SELECT CAST(SCOPE_IDENTITY() AS INT);
             """;
         using var connection = _connectionFactory.CreateConnection();
@@ -121,7 +127,8 @@ public class MenuRepository : IMenuRepository
     public async Task<bool> UpdateItemAsync(MenuItem item, CancellationToken ct = default)
     {
         const string sql = """
-            UPDATE MenuItems SET CategoryId = @CategoryId, Name = @Name, Description = @Description,
+            UPDATE MenuItems SET CategoryId = @CategoryId, Name = @Name, NameDe = @NameDe, NameKa = @NameKa,
+                Description = @Description, DescriptionDe = @DescriptionDe, DescriptionKa = @DescriptionKa,
                 Price = @Price, ImageUrl = @ImageUrl, IsAvailable = @IsAvailable, DisplayOrder = @DisplayOrder
             WHERE Id = @Id
             """;

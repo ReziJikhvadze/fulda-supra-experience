@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { z } from "zod";
 import { reservationsApi } from "@/lib/api";
+import { BRAND_PHONE, BRAND_PHONE_TEL, BRAND_WHATSAPP } from "@/lib/brand";
 import { Ornament } from "./Ornament";
 
 export function Reservation() {
@@ -72,11 +73,11 @@ export function Reservation() {
           </p>
 
           <div className="mt-12 space-y-6">
-            <a href="tel:+4906611234567" className="flex items-center gap-4 text-cream/90 hover:text-gold transition-colors">
+            <a href={`tel:${BRAND_PHONE_TEL}`} className="flex items-center gap-4 text-cream/90 hover:text-gold transition-colors">
               <span className="text-gold font-serif italic">{t("reservation.call")}</span>
-              <span className="text-lg">+49 (0) 661 123 4567</span>
+              <span className="text-lg">{BRAND_PHONE}</span>
             </a>
-            <a href="https://wa.me/4906611234567" target="_blank" rel="noreferrer" className="flex items-center gap-4 text-cream/90 hover:text-gold transition-colors">
+            <a href={`https://wa.me/${BRAND_WHATSAPP}`} target="_blank" rel="noreferrer" className="flex items-center gap-4 text-cream/90 hover:text-gold transition-colors">
               <span className="text-gold font-serif italic">{t("reservation.whatsapp")}</span>
               <span className="text-lg">{t("reservation.whatsappCta")}</span>
             </a>

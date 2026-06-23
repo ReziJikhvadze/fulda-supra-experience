@@ -2,11 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteNav } from "@/components/site/SiteNav";
 import { Hero } from "@/components/site/Hero";
 import { Intro } from "@/components/site/Intro";
-import { SignatureDishes } from "@/components/site/SignatureDishes";
 import { MenuSection } from "@/components/site/MenuSection";
 import { WineCellar } from "@/components/site/WineCellar";
 import { Story } from "@/components/site/Story";
-import { Gallery } from "@/components/site/Gallery";
 import { Events } from "@/components/site/Events";
 import { Reservation } from "@/components/site/Reservation";
 import { Contact } from "@/components/site/Contact";
@@ -41,13 +39,13 @@ export const Route = createFileRoute("/")({
           priceRange: "€€",
           address: {
             "@type": "PostalAddress",
-            streetAddress: "10-12",
+            streetAddress: "Am Stockhaus 10-12",
             postalCode: "36037",
             addressLocality: "Fulda",
             addressCountry: "DE",
           },
-          telephone: "+49 661 1234567",
-          openingHours: "Tu-Su 17:00-23:00",
+          telephone: "+4966183344399",
+          openingHours: "Tu-Fr 16:00-23:00, Sa-Su 14:00-23:00",
         }),
       },
     ],
@@ -61,11 +59,9 @@ function Index() {
       <main>
         <Hero />
         <Intro />
-        <SignatureDishes />
         <MenuSection />
         <WineCellar />
         <Story />
-        <Gallery />
         <Events />
         <Reservation />
         <Contact />
