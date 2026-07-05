@@ -15,6 +15,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AdminWinesRouteImport } from './routes/admin/wines'
 import { Route as AdminStaffRouteImport } from './routes/admin/staff'
+import { Route as AdminSiteImagesRouteImport } from './routes/admin/site-images'
 import { Route as AdminMenuRouteImport } from './routes/admin/menu'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 
@@ -48,6 +49,11 @@ const AdminStaffRoute = AdminStaffRouteImport.update({
   path: '/staff',
   getParentRoute: () => AdminRouteRoute,
 } as any)
+const AdminSiteImagesRoute = AdminSiteImagesRouteImport.update({
+  id: '/site-images',
+  path: '/site-images',
+  getParentRoute: () => AdminRouteRoute,
+} as any)
 const AdminMenuRoute = AdminMenuRouteImport.update({
   id: '/menu',
   path: '/menu',
@@ -65,6 +71,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/menu': typeof AdminMenuRoute
+  '/admin/site-images': typeof AdminSiteImagesRoute
   '/admin/staff': typeof AdminStaffRoute
   '/admin/wines': typeof AdminWinesRoute
   '/admin/': typeof AdminIndexRoute
@@ -74,6 +81,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/menu': typeof AdminMenuRoute
+  '/admin/site-images': typeof AdminSiteImagesRoute
   '/admin/staff': typeof AdminStaffRoute
   '/admin/wines': typeof AdminWinesRoute
   '/admin': typeof AdminIndexRoute
@@ -85,6 +93,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/menu': typeof AdminMenuRoute
+  '/admin/site-images': typeof AdminSiteImagesRoute
   '/admin/staff': typeof AdminStaffRoute
   '/admin/wines': typeof AdminWinesRoute
   '/admin/': typeof AdminIndexRoute
@@ -97,6 +106,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/admin/login'
     | '/admin/menu'
+    | '/admin/site-images'
     | '/admin/staff'
     | '/admin/wines'
     | '/admin/'
@@ -106,6 +116,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/admin/login'
     | '/admin/menu'
+    | '/admin/site-images'
     | '/admin/staff'
     | '/admin/wines'
     | '/admin'
@@ -116,6 +127,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/admin/login'
     | '/admin/menu'
+    | '/admin/site-images'
     | '/admin/staff'
     | '/admin/wines'
     | '/admin/'
@@ -171,6 +183,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminStaffRouteImport
       parentRoute: typeof AdminRouteRoute
     }
+    '/admin/site-images': {
+      id: '/admin/site-images'
+      path: '/site-images'
+      fullPath: '/admin/site-images'
+      preLoaderRoute: typeof AdminSiteImagesRouteImport
+      parentRoute: typeof AdminRouteRoute
+    }
     '/admin/menu': {
       id: '/admin/menu'
       path: '/menu'
@@ -191,6 +210,7 @@ declare module '@tanstack/react-router' {
 interface AdminRouteRouteChildren {
   AdminLoginRoute: typeof AdminLoginRoute
   AdminMenuRoute: typeof AdminMenuRoute
+  AdminSiteImagesRoute: typeof AdminSiteImagesRoute
   AdminStaffRoute: typeof AdminStaffRoute
   AdminWinesRoute: typeof AdminWinesRoute
   AdminIndexRoute: typeof AdminIndexRoute
@@ -199,6 +219,7 @@ interface AdminRouteRouteChildren {
 const AdminRouteRouteChildren: AdminRouteRouteChildren = {
   AdminLoginRoute: AdminLoginRoute,
   AdminMenuRoute: AdminMenuRoute,
+  AdminSiteImagesRoute: AdminSiteImagesRoute,
   AdminStaffRoute: AdminStaffRoute,
   AdminWinesRoute: AdminWinesRoute,
   AdminIndexRoute: AdminIndexRoute,

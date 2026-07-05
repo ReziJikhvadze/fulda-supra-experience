@@ -1,9 +1,11 @@
 import storyImg from "@/assets/story-interior.jpg";
 import { useTranslation } from "react-i18next";
 import { Ornament } from "./Ornament";
+import { useSiteImage } from "@/lib/siteImages";
 
 export function Story() {
   const { t } = useTranslation();
+  const imageSrc = useSiteImage("story", storyImg);
   return (
     <section id="story" className="py-24 md:py-32 bg-cream text-walnut">
       <div className="mx-auto max-w-7xl px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-20 items-center">
@@ -20,7 +22,7 @@ export function Story() {
         </div>
         <div className="md:col-span-7 order-1 md:order-2 relative">
           <img
-            src={storyImg}
+            src={imageSrc}
             alt="The dining room at Tabla Georgian restaurant in Fulda"
             loading="lazy"
             width={1200}

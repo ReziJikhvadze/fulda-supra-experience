@@ -6,6 +6,7 @@ import { Logo } from "@/components/site/Logo";
 const nav = [
   { to: "/admin", label: "Reservations", exact: true },
   { to: "/admin/menu", label: "Menu" },
+  { to: "/admin/site-images", label: "Images" },
   { to: "/admin/wines", label: "Wines" },
   { to: "/admin/staff", label: "Staff" },
 ] as const;

@@ -1,14 +1,16 @@
 import introImg from "@/assets/intro-khinkali.jpg";
 import { useTranslation } from "react-i18next";
+import { useSiteImage } from "@/lib/siteImages";
 
 export function Intro() {
   const { t } = useTranslation();
+  const imageSrc = useSiteImage("intro", introImg);
   return (
     <section className="py-24 md:py-32 px-6 md:px-12 bg-cream text-walnut">
       <div className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-center">
         <div className="md:col-span-7 relative">
           <img
-            src={introImg}
+            src={imageSrc}
             alt="Hands folding traditional Georgian khinkali dumplings"
             loading="lazy"
             width={1000}

@@ -27,12 +27,14 @@ public static class DependencyInjection
         services.AddScoped<IMenuRepository, MenuRepository>();
         services.AddScoped<IWineRepository, WineRepository>();
         services.AddScoped<IStaffRepository, StaffRepository>();
+        services.AddScoped<ISiteImageRepository, SiteImageRepository>();
         services.AddScoped<IAdminUserRepository, AdminUserRepository>();
 
         services.AddScoped<ReservationService>();
         services.AddScoped<MenuService>();
         services.AddScoped<WineService>();
         services.AddScoped<StaffService>();
+        services.AddScoped<SiteImageService>();
 
         services.AddSingleton<JwtTokenService>();
         services.AddScoped<IAuthService, AuthService>();

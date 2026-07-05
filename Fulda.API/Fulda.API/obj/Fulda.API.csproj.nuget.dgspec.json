@@ -10,7 +10,7 @@
         "projectUniqueName": "C:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.API\\Fulda.API.csproj",
         "projectName": "Fulda.API",
         "projectPath": "C:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.API\\Fulda.API.csproj",
-        "packagesPath": "C:\\Users\\Relloran\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\Relloran\\AppData\\Local\\Temp\\cursor-sandbox-cache\\a74b6837347a0741fedd0adc518b5596\\nuget",
         "outputPath": "C:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
@@ -108,7 +108,7 @@
         "projectUniqueName": "C:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.Application\\Fulda.Application.csproj",
         "projectName": "Fulda.Application",
         "projectPath": "C:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.Application\\Fulda.Application.csproj",
-        "packagesPath": "C:\\Users\\Relloran\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\Relloran\\AppData\\Local\\Temp\\cursor-sandbox-cache\\a74b6837347a0741fedd0adc518b5596\\nuget",
         "outputPath": "C:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
@@ -188,7 +188,7 @@
         "projectUniqueName": "C:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.Domain\\Fulda.Domain.csproj",
         "projectName": "Fulda.Domain",
         "projectPath": "C:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.Domain\\Fulda.Domain.csproj",
-        "packagesPath": "C:\\Users\\Relloran\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\Relloran\\AppData\\Local\\Temp\\cursor-sandbox-cache\\a74b6837347a0741fedd0adc518b5596\\nuget",
         "outputPath": "C:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
@@ -254,7 +254,7 @@
         "projectUniqueName": "C:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.Infrastructure\\Fulda.Infrastructure.csproj",
         "projectName": "Fulda.Infrastructure",
         "projectPath": "C:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.Infrastructure\\Fulda.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\Relloran\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\Relloran\\AppData\\Local\\Temp\\cursor-sandbox-cache\\a74b6837347a0741fedd0adc518b5596\\nuget",
         "outputPath": "C:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [

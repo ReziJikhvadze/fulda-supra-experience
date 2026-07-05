@@ -204,3 +204,12 @@ export const staffApi = {
   public: () => apiGet<StaffMemberDto[]>("/api/staff"),
   admin: (token: string) => apiGet<StaffMemberDto[]>("/api/staff/admin", token),
 };
+
+export type SiteImagesDto = {
+  intro?: string | null;
+  story?: string | null;
+};
+
+export const siteImagesApi = {
+  public: () => apiGet<SiteImagesDto>("/api/site-images"),
+};
