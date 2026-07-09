@@ -4,6 +4,7 @@ using Exam.API.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.AddHttpClient();
 builder.Services.AddSingleton<CareerDataStore>();
 builder.Services.AddSingleton<ScoringService>();
 builder.Services.AddSingleton<EmailSender>();
@@ -21,17 +22,18 @@ app.UseStaticFiles();
 app.MapGet("/api/diag", (Microsoft.Extensions.Options.IOptions<EmailSettings> opt) =>
 {
     var s = opt.Value;
+    string provider = !string.IsNullOrWhiteSpace(s.ResendApiKey) ? "Resend"
+        : !string.IsNullOrWhiteSpace(s.BrevoApiKey) ? "Brevo"
+        : !string.IsNullOrWhiteSpace(s.SmtpHost) ? "SMTP"
+        : "NONE";
     return Results.Ok(new
     {
+        activeProvider = provider,
+        resendKeySet = !string.IsNullOrWhiteSpace(s.ResendApiKey),
+        brevoKeySet = !string.IsNullOrWhiteSpace(s.BrevoApiKey),
         smtpHostSet = !string.IsNullOrWhiteSpace(s.SmtpHost),
-        smtpHost = s.SmtpHost,
-        smtpPort = s.SmtpPort,
-        useSsl = s.UseSsl,
-        usernameSet = !string.IsNullOrWhiteSpace(s.Username),
-        passwordSet = !string.IsNullOrWhiteSpace(s.Password),
-        passwordLength = s.Password?.Length ?? 0,
-        passwordHasSpaces = (s.Password ?? "").Contains(' '),
         fromAddressSet = !string.IsNullOrWhiteSpace(s.FromAddress),
+        fromAddress = s.FromAddress,
         recipient = s.Recipient
     });
 });
