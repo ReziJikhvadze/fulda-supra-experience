@@ -5,8 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddSingleton<CareerDataStore>();
-builder.Services.AddScoped<ScoringService>();
-builder.Services.AddScoped<EmailSender>();
+builder.Services.AddSingleton<ScoringService>();
+builder.Services.AddSingleton<EmailSender>();
 
 var app = builder.Build();
 
@@ -42,7 +42,11 @@ app.MapPost("/api/submit", async (SubmitRequest request, ScoringService scoring,
     }
 
     var result = scoring.Calculate(request);
-    await email.SendResultAsync(result);
+
+    // Send the email in the background so the student gets results instantly,
+    // regardless of how slow the SMTP server is. Errors are handled inside the sender.
+    _ = Task.Run(() => email.SendResultAsync(result));
+
     return Results.Ok(result);
 });
 

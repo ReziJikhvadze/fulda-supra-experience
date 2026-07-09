@@ -52,7 +52,8 @@ public class EmailSender
             using var client = new SmtpClient(_settings.SmtpHost, _settings.SmtpPort)
             {
                 EnableSsl = _settings.UseSsl,
-                Credentials = new NetworkCredential(_settings.Username, _settings.Password)
+                Credentials = new NetworkCredential(_settings.Username, _settings.Password),
+                Timeout = 20000
             };
             await client.SendMailAsync(message);
             _logger.LogInformation("Result email sent to {Recipient}", _settings.Recipient);
