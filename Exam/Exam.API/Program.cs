@@ -14,7 +14,27 @@ var app = builder.Build();
 _ = app.Services.GetRequiredService<CareerDataStore>();
 
 app.UseDefaultFiles();
+
 app.UseStaticFiles();
+
+// Diagnostic: reports whether email config reached the app (no secret values exposed).
+app.MapGet("/api/diag", (Microsoft.Extensions.Options.IOptions<EmailSettings> opt) =>
+{
+    var s = opt.Value;
+    return Results.Ok(new
+    {
+        smtpHostSet = !string.IsNullOrWhiteSpace(s.SmtpHost),
+        smtpHost = s.SmtpHost,
+        smtpPort = s.SmtpPort,
+        useSsl = s.UseSsl,
+        usernameSet = !string.IsNullOrWhiteSpace(s.Username),
+        passwordSet = !string.IsNullOrWhiteSpace(s.Password),
+        passwordLength = s.Password?.Length ?? 0,
+        passwordHasSpaces = (s.Password ?? "").Contains(' '),
+        fromAddressSet = !string.IsNullOrWhiteSpace(s.FromAddress),
+        recipient = s.Recipient
+    });
+});
 
 // Returns the questions (+ factors/clusters) for the quiz UI.
 app.MapGet("/api/questions", (CareerDataStore store) => Results.Ok(new
