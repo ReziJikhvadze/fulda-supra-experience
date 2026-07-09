@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Fulda.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a40955ca4951138f98c0800c4501e4bfa9677fa3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0572db68c85e473b915ff25351a455c1ef191aee")]
 [assembly: System.Reflection.AssemblyProductAttribute("Fulda.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Fulda.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

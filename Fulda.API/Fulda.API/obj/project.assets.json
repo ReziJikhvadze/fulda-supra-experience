@@ -3479,7 +3479,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Relloran\\AppData\\Local\\Temp\\cursor-sandbox-cache\\a74b6837347a0741fedd0adc518b5596\\nuget": {},
+    "C:\\Users\\Relloran\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
@@ -3488,7 +3488,7 @@
       "projectUniqueName": "C:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.API\\Fulda.API.csproj",
       "projectName": "Fulda.API",
       "projectPath": "C:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.API\\Fulda.API.csproj",
-      "packagesPath": "C:\\Users\\Relloran\\AppData\\Local\\Temp\\cursor-sandbox-cache\\a74b6837347a0741fedd0adc518b5596\\nuget",
+      "packagesPath": "C:\\Users\\Relloran\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Relloran\\source\\repos\\fulda-supra-experience\\Fulda.API\\Fulda.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
