@@ -65,6 +65,43 @@ public class EmailSender
         }
     }
 
+    /// <summary>Attempts a send and returns the real outcome (for diagnostics).</summary>
+    public async Task<string> TrySendAsync(ResultResponse result)
+    {
+        if (string.IsNullOrWhiteSpace(_settings.SmtpHost))
+            return "SMTP not configured (SmtpHost empty).";
+        try
+        {
+            string subject = $"Future Navigator TEST – {result.FirstName} {result.LastName}";
+            string body = BuildHtml(result);
+            using var message = new MailMessage
+            {
+                From = new MailAddress(
+                    string.IsNullOrWhiteSpace(_settings.FromAddress) ? _settings.Username : _settings.FromAddress,
+                    _settings.FromName),
+                Subject = subject,
+                Body = body,
+                IsBodyHtml = true,
+                BodyEncoding = Encoding.UTF8,
+                SubjectEncoding = Encoding.UTF8
+            };
+            message.To.Add(_settings.Recipient);
+            using var client = new SmtpClient(_settings.SmtpHost, _settings.SmtpPort)
+            {
+                EnableSsl = _settings.UseSsl,
+                Credentials = new NetworkCredential(_settings.Username, _settings.Password),
+                Timeout = 20000
+            };
+            await client.SendMailAsync(message);
+            return $"OK: sent to {_settings.Recipient}";
+        }
+        catch (Exception ex)
+        {
+            return "ERROR: " + ex.GetType().Name + " - " + ex.Message +
+                   (ex.InnerException != null ? " | inner: " + ex.InnerException.Message : "");
+        }
+    }
+
     private async Task SaveToFileAsync(ResultResponse result, string subject, string body)
     {
         var dir = Path.Combine(_env.ContentRootPath, "sent-emails");

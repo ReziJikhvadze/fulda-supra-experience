@@ -36,6 +36,25 @@ app.MapGet("/api/diag", (Microsoft.Extensions.Options.IOptions<EmailSettings> op
     });
 });
 
+// Diagnostic: actually attempts to send a test email and returns the real SMTP outcome.
+app.MapGet("/api/testemail", async (EmailSender email) =>
+{
+    var dummy = new ResultResponse
+    {
+        FirstName = "Test",
+        LastName = "Email",
+        Email = "test@futurenavigator",
+        PrimaryClusterId = "C01",
+        PrimaryClusterName = "Technology & AI",
+        Top3 = new List<CareerMatch>
+        {
+            new() { Profession = "Software Engineer", ClusterName = "Technology & AI", Score = 93.6 }
+        }
+    };
+    var outcome = await email.TrySendAsync(dummy);
+    return Results.Ok(new { outcome });
+});
+
 // Returns the questions (+ factors/clusters) for the quiz UI.
 app.MapGet("/api/questions", (CareerDataStore store) => Results.Ok(new
 {
