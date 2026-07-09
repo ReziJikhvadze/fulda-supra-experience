@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Future Navigator — კარიერული ტესტი</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">Future Navigator</div>
+      <div class="subtitle">ავტომატური კარიერული სისტემა</div>
+    </header>
+
+    <!-- STEP 1: student info -->
+    <section id="view-intro" class="card view">
+      <h1>მოგესალმებით! 👋</h1>
+      <p class="lead">
+        ეს ტესტი დაგეხმარებათ აღმოაჩინოთ თქვენთვის ყველაზე შესაფერისი პროფესიები.
+        შეავსეთ თქვენი მონაცემები და დაიწყეთ.
+      </p>
+      <form id="intro-form" class="form">
+        <label>სახელი
+          <input type="text" id="firstName" required autocomplete="given-name" placeholder="მაგ. ნიკა" />
+        </label>
+        <label>გვარი
+          <input type="text" id="lastName" required autocomplete="family-name" placeholder="მაგ. ტუტისანი" />
+        </label>
+        <label>ელ. ფოსტა
+          <input type="email" id="email" required autocomplete="email" placeholder="you@example.com" />
+        </label>
+        <button type="submit" class="btn primary">ტესტის დაწყება →</button>
+        <p class="error" id="intro-error"></p>
+      </form>
+    </section>
+
+    <!-- STEP 2: quiz -->
+    <section id="view-quiz" class="view hidden">
+      <div class="quiz-head card">
+        <div>
+          <h2 id="quiz-hello">ტესტი</h2>
+          <p class="muted">შეაფასეთ თითოეული დებულება 1-დან 5-მდე.</p>
+        </div>
+        <div class="scale-legend">
+          <span>1 — საერთოდ არ ვეთანხმები</span>
+          <span>5 — სრულად ვეთანხმები</span>
+        </div>
+      </div>
+
+      <div class="progress-wrap card">
+        <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+        <div class="progress-text"><span id="answered-count">0</span> / <span id="total-count">0</span> პასუხი</div>
+      </div>
+
+      <div id="questions"></div>
+
+      <div class="quiz-footer card">
+        <p class="error" id="quiz-error"></p>
+        <div class="pager">
+          <button id="back-btn" class="btn" type="button">← უკან</button>
+          <span id="page-indicator" class="page-indicator"></span>
+          <button id="next-btn" class="btn primary" type="button">შემდეგი →</button>
+          <button id="submit-btn" class="btn primary hidden" type="button">დასრულება და შედეგის ნახვა</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 3: results -->
+    <section id="view-results" class="view hidden">
+      <div class="card results-hero">
+        <h1>შენი შედეგები 🎯</h1>
+        <p id="results-name" class="lead"></p>
+        <div class="cluster-badge" id="cluster-badge"></div>
+      </div>
+
+      <div class="card">
+        <h2>TOP 3 პროფესია</h2>
+        <div id="top3" class="top3"></div>
+      </div>
+
+      <div class="card">
+        <h2>ფაქტორების პროფილი</h2>
+        <div id="factors" class="factors"></div>
+      </div>
+
+      <div class="card center">
+        <p class="muted">შედეგი ავტომატურად გაიგზავნა შემფასებელთან.</p>
+        <button class="btn" onclick="location.reload()">თავიდან დაწყება</button>
+      </div>
+    </section>
+
+    <div id="loader" class="loader hidden"><div class="spinner"></div><p>მუშავდება…</p></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

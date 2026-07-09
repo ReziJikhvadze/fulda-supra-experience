@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: future-navigator
+    runtime: docker
+    plan: free
+    rootDir: Exam/Exam.API
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
+    envVars:
+      - key: EmailSettings__Recipient
+        value: rezijikhvadze@gmail.com
+      - key: EmailSettings__SmtpHost
+        value: smtp.gmail.com
+      - key: EmailSettings__SmtpPort
+        value: "587"
+      - key: EmailSettings__UseSsl
+        value: "true"
+      - key: EmailSettings__FromName
+        value: Future Navigator
+      # Set these as secrets in the Render dashboard (do NOT commit real values):
+      - key: EmailSettings__Username
+        sync: false
+      - key: EmailSettings__Password
+        sync: false
+      - key: EmailSettings__FromAddress
+        sync: false

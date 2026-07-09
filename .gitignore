@@ -36,6 +36,9 @@ secrets.json
 # Local image uploads (when Azure Blob is not configured)
 Fulda.API/Fulda.API/uploads/
 
+# Future Navigator: locally saved result emails (SMTP fallback)
+Exam/Exam.API/sent-emails/
+
 # IDE artifacts
 *.rsuser
 .idea/

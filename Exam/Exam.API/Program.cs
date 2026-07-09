@@ -1,0 +1,49 @@
+using Exam.API.Models;
+using Exam.API.Services;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.AddSingleton<CareerDataStore>();
+builder.Services.AddScoped<ScoringService>();
+builder.Services.AddScoped<EmailSender>();
+
+var app = builder.Build();
+
+// Load data eagerly so startup fails fast if the data file is missing.
+_ = app.Services.GetRequiredService<CareerDataStore>();
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
+// Returns the questions (+ factors/clusters) for the quiz UI.
+app.MapGet("/api/questions", (CareerDataStore store) => Results.Ok(new
+{
+    questions = store.Data.Questions,
+    factors = store.Data.Factors,
+    clusters = store.Data.Clusters
+}));
+
+// Accepts the filled quiz, computes the result, emails it and returns it to the UI.
+app.MapPost("/api/submit", async (SubmitRequest request, ScoringService scoring, EmailSender email, CareerDataStore store) =>
+{
+    if (string.IsNullOrWhiteSpace(request.FirstName) ||
+        string.IsNullOrWhiteSpace(request.LastName) ||
+        string.IsNullOrWhiteSpace(request.Email))
+    {
+        return Results.BadRequest(new { error = "გთხოვთ შეავსოთ სახელი, გვარი და ელ. ფოსტა." });
+    }
+
+    int total = store.Data.Questions.Count;
+    int answered = store.Data.Questions.Count(q => request.Answers.ContainsKey(q.Id) && request.Answers[q.Id] >= 1);
+    if (answered < total)
+    {
+        return Results.BadRequest(new { error = $"გთხოვთ უპასუხოთ ყველა კითხვას. პასუხგაცემულია {answered}/{total}." });
+    }
+
+    var result = scoring.Calculate(request);
+    await email.SendResultAsync(result);
+    return Results.Ok(result);
+});
+
+app.Run();

@@ -1,0 +1,5 @@
+bin/
+obj/
+sent-emails/
+Properties/launchSettings.json
+*.user
